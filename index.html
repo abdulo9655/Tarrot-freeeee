@@ -19,205 +19,7 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-<!-- =========================
-     โฆษณา
-========================= -->
-<div id="adOverlay" class="ad-overlay">
-  <div class="ad-box">
-    <button class="ad-close" onclick="closeAd()">×</button>
-
-    <img
-      src="https://cdn.phototourl.com/free/2026-09-08-f563dc94-bf71-48bd-b2ae-487bdcfd67f1.jpg"
-      class="ad-image"
-      alt="โฆษณา"
-    >
-
-    <button class="ad-close-btn" onclick="closeAd()">
-      ปิดโฆษณา
-    </button>
-  </div>
-</div>
-
-<!-- =========================
-     ป้ายเตือน
-========================= -->
-<div id="warningOverlay" class="warning-overlay">
-  <div class="warning-box">
-
-    <div class="warning-icon">⚠️</div>
-
-    <h2>คำเตือนก่อนใช้บริการ</h2>
-
-    <p class="warning-main">
-      กรุณาอ่านและปฏิบัติตามเงื่อนไขของระบบ
-    </p>
-
-    <div class="warning-danger">
-      <strong>หากฝ่าฝืนเงื่อนไข</strong>
-      <br>
-      ทางระบบจะ <b>ไม่รับผิดชอบ</b>
-      <br>
-      และ <b>ไม่คืนเงิน</b>
-    </div>
-
-    <p class="warning-small">
-      โปรดตรวจสอบข้อมูลและรายละเอียดก่อนทำรายการทุกครั้ง
-    </p>
-
-    <button class="warning-ok" onclick="acceptWarning()">
-      ✓ รับทราบและเข้าสู่ระบบ
-    </button>
-
-  </div>
-</div>
-
-<style>
-/* ===== โฆษณา ===== */
-.ad-overlay{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  background:rgba(0,0,0,.92);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:16px;
-  backdrop-filter:blur(8px);
-}
-
-.ad-box{
-  position:relative;
-  width:min(94vw,480px);
-  background:#150b20;
-  padding:10px;
-  border:1px solid #a855f7;
-  border-radius:22px;
-  box-shadow:0 0 40px rgba(168,85,247,.6);
-}
-
-.ad-image{
-  width:100%;
-  display:block;
-  border-radius:15px;
-}
-
-.ad-close{
-  position:absolute;
-  right:-8px;
-  top:-8px;
-  width:40px;
-  height:40px;
-  border:0;
-  border-radius:50%;
-  background:#24102f;
-  color:#fff;
-  font-size:28px;
-  z-index:2;
-}
-
-.ad-close-btn{
-  width:100%;
-  margin-top:10px;
-  padding:13px;
-  border:0;
-  border-radius:12px;
-  background:linear-gradient(90deg,#7c3aed,#c026d3);
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-}
-
-/* ===== ป้ายเตือน ===== */
-.warning-overlay{
-  position:fixed;
-  inset:0;
-  z-index:100000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(0,0,0,.94);
-  backdrop-filter:blur(10px);
-}
-
-.warning-box{
-  width:min(92vw,430px);
-  padding:28px 22px;
-  text-align:center;
-  color:white;
-  border:2px solid #f59e0b;
-  border-radius:24px;
-  background:
-    radial-gradient(circle at top,#3b174f,#120a19 70%);
-  box-shadow:
-    0 0 30px rgba(245,158,11,.5),
-    0 0 80px rgba(168,85,247,.2);
-}
-
-.warning-icon{
-  font-size:55px;
-  margin-bottom:8px;
-}
-
-.warning-box h2{
-  margin:5px 0 15px;
-  color:#ffd166;
-  font-size:25px;
-}
-
-.warning-main{
-  color:#ddd;
-  line-height:1.6;
-}
-
-.warning-danger{
-  margin:18px 0;
-  padding:17px 12px;
-  border-radius:15px;
-  background:rgba(239,68,68,.12);
-  border:1px solid rgba(248,113,113,.5);
-  color:#fff;
-  line-height:1.8;
-}
-
-.warning-danger strong{
-  color:#ffd166;
-  font-size:18px;
-}
-
-.warning-danger b{
-  color:#ff7777;
-}
-
-.warning-small{
-  color:#aaa;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.warning-ok{
-  width:100%;
-  margin-top:8px;
-  padding:14px;
-  border:0;
-  border-radius:13px;
-  background:linear-gradient(90deg,#f59e0b,#ea580c);
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-}
-</style>
-
-<script>
-function closeAd(){
-  document.getElementById("adOverlay").style.display = "none";
-  document.getElementById("warningOverlay").style.display = "flex";
-}
-
-function acceptWarning(){
-  document.getElementById("warningOverlay").style.display = "none";
-}
-</script>body{
+body{
 
   margin:0;
 
@@ -738,11 +540,188 @@ hr{
 
 }
 
+
+
+/* ===== ADVERTISEMENT ===== */
+.ad-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  backdrop-filter:blur(8px);
+}
+
+.ad-box{
+  position:relative;
+  width:min(94vw,480px);
+  max-height:92vh;
+  background:#150b20;
+  padding:10px;
+  border:1px solid #a855f7;
+  border-radius:22px;
+  box-shadow:0 0 40px rgba(168,85,247,.6);
+  overflow:auto;
+}
+
+.ad-image{
+  width:100%;
+  max-height:78vh;
+  object-fit:contain;
+  display:block;
+  border-radius:15px;
+}
+
+.ad-close{
+  position:absolute;
+  right:-8px;
+  top:-8px;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:#24102f;
+  color:#fff;
+  font-size:28px;
+  line-height:40px;
+  padding:0;
+  margin:0;
+  z-index:2;
+  cursor:pointer;
+}
+
+.ad-close-btn{
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(90deg,#7c3aed,#c026d3);
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+}
+
+/* ===== WARNING ===== */
+.warning-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.94);
+  backdrop-filter:blur(10px);
+}
+
+.warning-box{
+  width:min(92vw,430px);
+  padding:28px 22px;
+  text-align:center;
+  color:white;
+  border:2px solid #f59e0b;
+  border-radius:24px;
+  background:radial-gradient(circle at top,#3b174f,#120a19 70%);
+  box-shadow:0 0 30px rgba(245,158,11,.5),0 0 80px rgba(168,85,247,.2);
+}
+
+.warning-icon{
+  font-size:55px;
+  margin-bottom:8px;
+}
+
+.warning-box h2{
+  margin:5px 0 15px;
+  color:#ffd166;
+  font-size:25px;
+}
+
+.warning-main{
+  color:#ddd;
+  line-height:1.6;
+}
+
+.warning-danger{
+  margin:18px 0;
+  padding:17px 12px;
+  border-radius:15px;
+  background:rgba(239,68,68,.12);
+  border:1px solid rgba(248,113,113,.5);
+  color:#fff;
+  line-height:1.8;
+}
+
+.warning-danger strong{
+  color:#ffd166;
+  font-size:18px;
+}
+
+.warning-danger b{
+  color:#ff7777;
+}
+
+.warning-small{
+  color:#aaa;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.warning-ok{
+  width:100%;
+  margin-top:8px;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  background:linear-gradient(90deg,#f59e0b,#ea580c);
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
 </style>
 
 </head>
 
 <body>
+
+<!-- =========================
+     โฆษณา
+========================= -->
+<div id="adOverlay" class="ad-overlay">
+  <div class="ad-box">
+    <button class="ad-close" onclick="closeAd()" aria-label="ปิดโฆษณา">×</button>
+    <img
+      src="https://cdn.phototourl.com/free/2026-09-08-f563dc94-bf71-48bd-b2ae-487bdcfd67f1.jpg"
+      class="ad-image"
+      alt="โฆษณา"
+    >
+    <button class="ad-close-btn" onclick="closeAd()">ปิดโฆษณา</button>
+  </div>
+</div>
+
+<!-- =========================
+     ป้ายเตือน
+========================= -->
+<div id="warningOverlay" class="warning-overlay">
+  <div class="warning-box">
+    <div class="warning-icon">⚠️</div>
+    <h2>คำเตือนก่อนใช้บริการ</h2>
+    <p class="warning-main">กรุณาอ่านและปฏิบัติตามเงื่อนไขของระบบ</p>
+    <div class="warning-danger">
+      <strong>หากฝ่าฝืนเงื่อนไข</strong><br>
+      ทางระบบจะ <b>ไม่รับผิดชอบ</b><br>
+      และ <b>ไม่คืนเงิน</b>
+    </div>
+    <p class="warning-small">โปรดตรวจสอบข้อมูลและรายละเอียดก่อนทำรายการทุกครั้ง</p>
+    <button class="warning-ok" onclick="acceptWarning()">✓ รับทราบและเข้าสู่ระบบ</button>
+  </div>
+</div>
+
 
 <div class="container">
 
@@ -1144,6 +1123,23 @@ let fastPrice =
 
 let currentOrder =
   null;
+
+
+/************************************************
+ * ADVERTISEMENT + WARNING
+ ************************************************/
+function closeAd(){
+  const ad = document.getElementById("adOverlay");
+  const warning = document.getElementById("warningOverlay");
+
+  if(ad) ad.style.display = "none";
+  if(warning) warning.style.display = "flex";
+}
+
+function acceptWarning(){
+  const warning = document.getElementById("warningOverlay");
+  if(warning) warning.style.display = "none";
+}
 
 
 /************************************************
