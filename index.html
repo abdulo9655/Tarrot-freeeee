@@ -1,469 +1,110 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#350407">
-<title>Tarot Queue | ประกาศปิดกิจการ</title>
-
-<style>
-:root {
-  --wine: #350407;
-  --wine2: #5b080d;
-  --gold: #f6d17a;
-  --gold2: #bd7b24;
-  --cream: #fff0d0;
-  --muted: #e7c9b2;
-}
-
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  min-height: 100%;
-  background: var(--wine);
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--cream);
-  font-family: system-ui, -apple-system, "Segoe UI",
-    "Noto Sans Thai", sans-serif;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    #8d301b 0%,
-    #541014 28%,
-    #260307 72%,
-    #130103 100%
-  );
-  overflow-x: hidden;
-}
-
-body:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .2;
-  background-image: repeating-radial-gradient(
-    circle at 50% 50%,
-    transparent 0 17px,
-    rgba(255,202,91,.2) 18px 19px,
-    transparent 20px 34px
-  );
-  background-size: 170px 170px;
-  mask-image: linear-gradient(to bottom, black, transparent 95%);
-}
-
-.curtain {
-  position: fixed;
-  top: 0;
-  width: clamp(50px, 12vw, 150px);
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  opacity: .9;
-  background: linear-gradient(
-    90deg,
-    #160104,
-    #710c16 35%,
-    #3a0309 75%,
-    #170104
-  );
-  box-shadow:
-    inset -8px 0 15px #160104,
-    inset 4px 0 10px #e4a13b;
-}
-
-.curtain:after {
-  content: "✦  ❋  ✦  ❋  ✦";
-  position: absolute;
-  top: 15%;
-  left: 8%;
-  writing-mode: vertical-rl;
-  letter-spacing: 12px;
-  color: #e7b85b;
-  font-size: 20px;
-  text-shadow: 0 0 12px #ffcb62;
-}
-
-.curtain.left {
-  left: 0;
-  border-right: 2px solid #b77a27;
-  border-radius: 0 0 45% 0;
-}
-
-.curtain.right {
-  right: 0;
-  border-left: 2px solid #b77a27;
-  border-radius: 0 0 0 45%;
-  transform: scaleX(-1);
-}
-
-.wrap {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 28px 18px;
-}
-
-.panel {
-  width: min(100%, 720px);
-  position: relative;
-  padding: clamp(25px, 5vw, 52px)
-    clamp(20px, 6vw, 58px);
-  text-align: center;
-  background: linear-gradient(
-    150deg,
-    rgba(83,7,13,.96),
-    rgba(28,2,6,.97)
-  );
-  border: 2px solid var(--gold2);
-  outline: 1px solid rgba(255,220,139,.38);
-  outline-offset: 7px;
-  box-shadow:
-    0 0 35px #f4a52b30,
-    0 25px 80px #0009;
-  clip-path: polygon(
-    0 3%, 4% 3%, 4% 0,
-    96% 0, 96% 3%, 100% 3%,
-    100% 97%, 96% 97%, 96% 100%,
-    4% 100%, 4% 97%, 0 97%
-  );
-}
-
-.panel:before,
-.panel:after {
-  content: "❋";
-  position: absolute;
-  color: var(--gold);
-  font-size: 32px;
-  text-shadow: 0 0 18px #ffbd4d;
-  top: 12px;
-}
-
-.panel:before {
-  left: 16px;
-}
-
-.panel:after {
-  right: 16px;
-}
-
-.symbol {
-  font-size: clamp(38px, 8vw, 66px);
-  line-height: 1.1;
-  color: var(--gold);
-  text-shadow:
-    0 0 20px #ffbb4d,
-    0 0 40px #e87b25;
-  animation: glow 3s ease-in-out infinite;
-}
-
-.brand {
-  font-family: Georgia, serif;
-  font-size: clamp(30px, 7vw, 48px);
-  letter-spacing: 1px;
-  color: #ffe1a0;
-  text-shadow:
-    0 2px 0 #7c3a10,
-    0 0 22px #ffbd58;
-  margin: 9px 0 0;
-}
-
-.subbrand {
-  font-size: 14px;
-  letter-spacing: 5px;
-  color: #e8bd71;
-  margin-top: 6px;
-}
-
-.rule {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: center;
-  color: var(--gold);
-  margin: 23px 0;
-}
-
-.rule:before,
-.rule:after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  max-width: 140px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--gold),
-    transparent
-  );
-}
-
-.eyebrow {
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: #f4d49b;
-  margin: 0 0 8px;
-}
-
-h1 {
-  font-size: clamp(34px, 8vw, 64px);
-  line-height: 1.16;
-  margin: 0;
-  color: #ffda80;
-  text-shadow:
-    0 3px 0 #79310b,
-    0 0 20px #ffb52c,
-    0 0 42px #d35d18;
-  letter-spacing: .5px;
-}
-
-.lead {
-  font-size: clamp(17px, 3.8vw, 21px);
-  font-weight: 600;
-  margin: 23px 0 10px;
-  color: #fff1d3;
-}
-
-.copy {
-  font-size: clamp(14px, 3.4vw, 17px);
-  line-height: 2;
-  color: #ead4bd;
-  margin: 0 auto;
-  max-width: 520px;
-}
-
-.notice {
-  margin: 23px auto 19px;
-  padding: 16px 15px;
-  border: 1px solid #d8a44d;
-  border-radius: 12px;
-  background: linear-gradient(
-    120deg,
-    #6a1015aa,
-    #290307aa
-  );
-  color: #ffe3a0;
-  max-width: 530px;
-  box-shadow: inset 0 0 18px #e3a03912;
-}
-
-.notice strong {
-  display: block;
-  font-size: 16px;
-  margin-bottom: 4px;
-  color: #ffdc8a;
-}
-
-.notice span {
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.thanks {
-  font-size: 15px;
-  line-height: 1.9;
-  color: #f7e3c7;
-  margin: 18px 0 0;
-}
-
-.signature {
-  margin-top: 22px;
-  font-size: 14px;
-  color: #e7ba68;
-  letter-spacing: .4px;
-}
-
-.bottom-symbol {
-  margin-top: 18px;
-  color: var(--gold);
-  font-size: 22px;
-  letter-spacing: 8px;
-}
-
-.lamp {
-  position: fixed;
-  bottom: 14px;
-  font-size: clamp(34px, 6vw, 60px);
-  filter: drop-shadow(0 0 14px #ff9c22);
-  animation: flicker 2.4s infinite alternate;
-  z-index: 1;
-}
-
-.lamp.l {
-  left: clamp(10px, 4vw, 55px);
-}
-
-.lamp.r {
-  right: clamp(10px, 4vw, 55px);
-  animation-delay: .8s;
-}
-
-.petal {
-  position: fixed;
-  top: -30px;
-  z-index: 2;
-  pointer-events: none;
-  color: #e94c69;
-  animation: fall linear infinite;
-  text-shadow: 0 0 8px #f77b52;
-}
-
-.p1 {
-  left: 12%;
-  animation-duration: 12s;
-}
-
-.p2 {
-  left: 83%;
-  animation-duration: 15s;
-  animation-delay: 3s;
-}
-
-.p3 {
-  left: 25%;
-  animation-duration: 17s;
-  animation-delay: 6s;
-}
-
-@keyframes glow {
-  0%, 100% {
-    text-shadow:
-      0 0 16px #ffbd4d,
-      0 0 30px #e87b25;
-  }
-
-  50% {
-    text-shadow:
-      0 0 26px #ffe6a1,
-      0 0 52px #ff8e26;
-  }
-}
-
-@keyframes flicker {
-  0%, 100% {
-    opacity: .85;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.06);
-  }
-}
-
-@keyframes fall {
-  to {
-    transform: translate3d(60px, 110vh, 0) rotate(360deg);
-  }
-}
-
-@media (max-width: 480px) {
-  .wrap {
-    padding: 25px 17px;
-  }
-
-  .panel {
-    padding: 32px 19px;
-  }
-
-  .curtain {
-    width: 24px;
-    opacity: .55;
-  }
-
-  .curtain:after {
-    display: none;
-  }
-
-  .notice {
-    padding: 13px 11px;
-  }
-
-  .lamp {
-    bottom: 6px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *:before,
-  *:after {
-    animation: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Taro hub by Aumboon</title>
+  <meta name="theme-color" content="#500a13">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: #ffe9b0;
+      font-family: system-ui, sans-serif;
+      background:
+        radial-gradient(ellipse at top, #8d2525 0%, transparent 55%),
+        linear-gradient(145deg, #210509, #570b18 55%, #170306);
+    }
+    .panel {
+      width: min(100%, 560px);
+      text-align: center;
+      padding: 36px 24px;
+      border: 1px solid #d9ae57;
+      border-radius: 24px;
+      background: #30080de8;
+      box-shadow: 0 0 55px #e3aa3030;
+    }
+    .symbol {
+      font-size: 54px;
+      margin-bottom: 8px;
+    }
+    h1 {
+      color: #f8d889;
+      font-size: clamp(27px, 6vw, 40px);
+      margin: 8px 0;
+    }
+    .subtitle {
+      color: #e9cda4;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      margin-top: 14px;
+      border: 1px solid #f8d889;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f8df9b, #c38b32);
+      color: #38070c;
+      font-size: 17px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 22px #e7bd6655;
+    }
+    .secondary {
+      color: #f8d889;
+      background: transparent;
+    }
+    .note {
+      font-size: 12px;
+      color: #c9a8a0;
+      margin-top: 24px;
+      line-height: 1.8;
+    }
+  </style>
 </head>
-
 <body>
-
-<div class="curtain left"></div>
-<div class="curtain right"></div>
-
-<div class="petal p1">✿</div>
-<div class="petal p2">❀</div>
-<div class="petal p3">✿</div>
-
-<div class="lamp l">🪔</div>
-<div class="lamp r">🪔</div>
-
-<main class="wrap">
-  <section class="panel">
-
-    <div class="symbol">ॐ</div>
-
-    <div class="brand">Tarot Queue</div>
-    <div class="subbrand">ตำหนักพยากรณ์</div>
-
-    <div class="rule">✧ ❋ ✧</div>
-
-    <p class="eyebrow">ประกาศจากตำหนักพยากรณ์</p>
-
-    <h1>ปิดกิจการถาวร</h1>
-
-    <div class="rule">✧ 🪷 ✧</div>
-
-    <p class="lead">
-      ขอขอบพระคุณทุกท่านที่ให้การสนับสนุน
-      และไว้วางใจใช้บริการของเรามาโดยตลอด
-    </p>
-
-    <p class="copy">
-      ทุกความเชื่อใจ ทุกคำขอบคุณ<br>
-      และทุกช่วงเวลาที่ได้ให้บริการแก่ทุกท่าน<br>
-      ล้วนเป็นความทรงจำที่มีคุณค่าเสมอมา
-    </p>
-
-    <div class="notice">
-      <strong>ประกาศในอนาคต</strong>
-      <span>
-        หากในอนาคตมีโอกาสกลับมาเปิดให้บริการอีกครั้ง<br>
-        ทางเราจะแจ้งข่าวสารให้ทุกท่านทราบในภายหลัง
-      </span>
+  <main class="panel">
+    <div class="symbol">✦ 🔮 ✦</div>
+    <h1>Taro hub</h1>
+    <div class="subtitle">
+      by Aumboon<br>
+      ขอให้ทุกคำถามนำไปสู่มุมมองใหม่ ๆ<br>
+      ระบบจองคิวและตรวจสอบคิว
     </div>
 
-    <p class="thanks">
-      ขอขอบพระคุณจากใจ<br>
-      ที่ร่วมเดินทางและเป็นส่วนหนึ่งของเราเสมอมา
-    </p>
+    <a class="btn" id="openBooking" target="_blank"
+       rel="noopener noreferrer">
+      ✨ เข้าสู่ระบบจองคิว
+    </a>
 
-    <div class="signature">
-      ด้วยความเคารพและขอบพระคุณอย่างสูง<br>
-      จากทีมงาน Tarot Queue
+    <a class="btn secondary" id="openAdmin" target="_blank"
+       rel="noopener noreferrer">
+      ♛ เปิดระบบจัดการคิว
+    </a>
+
+    <div class="note">
+      ระบบจองคิว • ตรวจสอบคิว • จัดการคิว<br>
+      หากระบบไม่เปิด กรุณาตรวจสอบสิทธิ์การเข้าถึง Web App
     </div>
+  </main>
 
-    <div class="bottom-symbol">ॐ ❋ ॐ</div>
+  <script>
+    const APP_URL =
+      "https://script.google.com/macros/s/AKfycbyzgpouhg-DCH8C-RP98z4rNdB5P8K9UuGL9qxAFG-dq39cy71fuYNyxFDhaS11SZJfFg/exec";
 
-  </section>
-</main>
-
+    document.getElementById("openBooking").href = APP_URL;
+    document.getElementById("openAdmin").href = APP_URL;
+  </script>
 </body>
 </html>
