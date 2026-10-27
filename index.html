@@ -4,749 +4,913 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#19090c">
+<meta name="theme-color" content="#260d25">
 <title>TARO HUB BY AUMBOON</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
-:root {
-  --gold:#f5d78c;
-  --gold2:#b98132;
-  --red:#6f1427;
-  --wine:#270a17;
-  --purple:#28102b;
-  --cream:#fff2d8;
-  --muted:#d4bda9;
-  --panel:rgba(37,13,25,.88);
+:root{
+  --wine:#260d25;
+  --wine2:#43152f;
+  --purple:#63234d;
+  --gold:#f1d28b;
+  --gold2:#c59b50;
+  --cream:#fff5df;
+  --muted:#d8c3ce;
+  --panel:rgba(54,20,46,.83);
+  --border:rgba(241,210,139,.30);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
   margin:0;
-  min-height:100vh;
-  font-family:'Kanit',sans-serif;
   color:var(--cream);
+  font-family:'Kanit',sans-serif;
   background:
-    radial-gradient(ellipse at 50% -10%,#783b37 0%,transparent 43%),
-    radial-gradient(ellipse at 0% 40%,#401326 0%,transparent 45%),
-    radial-gradient(ellipse at 100% 65%,#35132f 0%,transparent 40%),
-    linear-gradient(145deg,#12070b,#260b17 50%,#10070d);
+    radial-gradient(ellipse at 50% 0%,#65264c 0%,transparent 42%),
+    radial-gradient(ellipse at 0% 45%,#451638 0%,transparent 35%),
+    linear-gradient(145deg,#160817,#351027 48%,#170817);
+  min-height:100vh;
   overflow-x:hidden;
 }
+body:before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:-1;
+  opacity:.12;
+  background-image:
+    repeating-linear-gradient(45deg,transparent 0 30px,#d8ad5d 31px,#d8ad5d 32px,transparent 33px 60px),
+    repeating-linear-gradient(-45deg,transparent 0 30px,#d8ad5d 31px,#d8ad5d 32px,transparent 33px 60px);
+  mask-image:linear-gradient(to bottom,black,transparent 75%);
+}
 button,input,select,textarea{font:inherit}
-button{color:inherit}
-button:focus-visible,input:focus-visible,select:focus-visible{
-  outline:2px solid var(--gold);
-  outline-offset:3px
+button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--gold);outline-offset:3px
 }
-
-/* Animated royal background */
-#particles{
-  position:fixed;inset:0;width:100%;height:100%;
-  pointer-events:none;z-index:0;opacity:.75
+a{color:var(--gold)}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.spark{
+  position:absolute;color:#f8d992;opacity:0;
+  animation:floatUp linear infinite;text-shadow:0 0 12px #e4b35e;
 }
-.ambient{
-  position:fixed;inset:-20%;pointer-events:none;z-index:0;
-  background:conic-gradient(from 0deg at 50% 50%,
-    transparent,#a36a2720,transparent,#ffcf5b0c,transparent);
-  animation:ambientSpin 50s linear infinite
+@keyframes floatUp{
+  0%{transform:translateY(15vh) rotate(0);opacity:0}
+  15%{opacity:.75}
+  85%{opacity:.5}
+  100%{transform:translateY(-110vh) rotate(220deg);opacity:0}
 }
-@keyframes ambientSpin{to{transform:rotate(360deg)}}
-.page-frame{
-  position:fixed;inset:9px;z-index:5;pointer-events:none;
-  border:1px solid #e8bf663c;
-  box-shadow:inset 0 0 30px #a76b1b0b;
+.page{position:relative;z-index:1}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px clamp(16px,5vw,65px);
+  border-bottom:1px solid var(--border);
+  background:rgba(20,5,20,.42);backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:10;gap:12px;
 }
-.page-frame:before,.page-frame:after{
-  content:"✦";position:absolute;color:var(--gold);
-  font-size:22px;text-shadow:0 0 15px #f8ca69
+.brand-small{font-family:'Playfair Display',serif;color:var(--gold);letter-spacing:2px;font-size:15px}
+.navlinks{display:flex;gap:8px;flex-wrap:wrap}
+.navlinks button{
+  background:transparent;border:1px solid transparent;color:var(--cream);
+  padding:8px 12px;border-radius:25px;font-size:13px
 }
-.page-frame:before{top:8px;left:10px}
-.page-frame:after{right:10px;bottom:8px}
-
-header,nav,main,footer{position:relative;z-index:2}
-header{
-  text-align:center;padding:38px 16px 20px;
-  position:relative
-}
-.crown{
-  color:var(--gold);font-size:22px;letter-spacing:10px;
-  margin-bottom:13px;animation:goldGlow 3s ease-in-out infinite
-}
-.logo-wrap{
-  width:112px;height:112px;margin:0 auto 17px;
-  border:2px solid var(--gold);
-  border-radius:50%;padding:7px;
-  background:linear-gradient(145deg,#f5dc9a,#71391d,#f4d58c);
-  box-shadow:0 0 25px #e7b44b35,0 0 65px #d78a2422;
-  animation:logoFloat 5s ease-in-out infinite
-}
-.logo-inner{
-  width:100%;height:100%;border-radius:50%;
-  display:grid;place-items:center;
-  background:radial-gradient(circle,#60182c,#210b18 75%);
-  border:1px solid #f9df9c;
-  font-size:48px
-}
-h1{
-  font-family:'Cinzel',serif;
-  color:var(--gold);font-weight:700;
-  font-size:clamp(31px,7vw,60px);
-  line-height:1.15;letter-spacing:3px;margin:0;
-  text-shadow:0 0 20px #d99b4935,0 3px 0 #421019
-}
-.brand-sub{
-  margin-top:13px;font-size:12px;
-  color:#f4d6a0;letter-spacing:5px
-}
-.gold-rule{
-  display:flex;align-items:center;justify-content:center;
-  gap:14px;margin:20px auto;width:min(350px,80%)
-}
-.gold-rule:before,.gold-rule:after{
-  content:"";height:1px;flex:1;
-  background:linear-gradient(90deg,transparent,var(--gold))
-}
-.gold-rule:after{transform:scaleX(-1)}
-.gold-rule span{color:var(--gold);font-size:17px}
-
-nav{
-  display:flex;justify-content:center;gap:9px;flex-wrap:wrap;
-  padding:12px 16px 22px;max-width:1000px;margin:auto
-}
-button,.button{
-  border:1px solid #bd8b4c80;
-  background:linear-gradient(145deg,#4a1c2a,#28101e);
-  border-radius:8px;padding:11px 17px;cursor:pointer;
-  transition:transform .25s,border-color .25s,box-shadow .25s;
-}
-button:hover,.button:hover{
-  border-color:var(--gold);transform:translateY(-2px);
-  box-shadow:0 6px 25px #d7a24b22
-}
-button.primary{
-  background:linear-gradient(120deg,#f8e3a7,#d4a24d,#f7d98f);
-  background-size:200% 100%;color:#351016;
-  border:1px solid #ffe8a8;font-weight:700;
-  box-shadow:0 4px 22px #d39b3b26;
-  animation:buttonShine 5s ease-in-out infinite
-}
-@keyframes buttonShine{
-  0%,100%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-}
-main{max-width:1100px;margin:auto;padding:5px 20px 60px}
-.page{animation:pageIn .65s ease both}
-.hidden{display:none!important}
-@keyframes pageIn{
-  from{opacity:0;transform:translateY(14px)}
-  to{opacity:1;transform:translateY(0)}
-}
+.navlinks button:hover{border-color:var(--border);color:var(--gold)}
 .hero{
-  position:relative;text-align:center;padding:42px 24px 40px;
-  border:1px solid #d6ac5c6b;border-radius:180px 180px 15px 15px;
-  background:
-    radial-gradient(ellipse at 50% 0%,#8e462d45,transparent 60%),
-    linear-gradient(180deg,#421523bd,#1b0b16e8);
-  box-shadow:0 0 60px #0003,inset 0 0 50px #d8a44908;
-  overflow:hidden
+  min-height:520px;padding:70px 20px 50px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;isolation:isolate;
 }
 .hero:before{
-  content:"";position:absolute;inset:12px;
-  border:1px solid #d9b46b38;border-radius:170px 170px 9px 9px;
-  pointer-events:none
+  content:"";position:absolute;width:min(78vw,430px);aspect-ratio:1;
+  border:1px solid rgba(241,210,139,.24);border-radius:50%;z-index:-1;
+  box-shadow:0 0 0 20px rgba(241,210,139,.025),0 0 0 40px rgba(241,210,139,.02);
 }
 .mandala{
-  position:absolute;top:50%;left:50%;
-  width:min(540px,100vw);aspect-ratio:1;
-  transform:translate(-50%,-50%);
-  opacity:.08;pointer-events:none;
-  border:2px solid var(--gold);border-radius:50%;
-  background:repeating-conic-gradient(from 0deg,#f5d78c 0deg 1deg,transparent 1deg 15deg);
-  mask-image:radial-gradient(circle,transparent 0 24%,#000 25% 26%,transparent 27% 34%,#000 35% 36%,transparent 37% 45%,#000 46% 47%,transparent 48% 58%,#000 59% 60%,transparent 61%)
+  color:var(--gold);font-size:72px;line-height:1;
+  text-shadow:0 0 30px #d4a653;animation:turn 45s linear infinite;
 }
-.hero-content{position:relative;z-index:1}
-.eyebrow{
-  color:var(--gold);font-size:12px;letter-spacing:3px;
-  margin-bottom:15px
+@keyframes turn{to{transform:rotate(360deg)}}
+.eyebrow{font-size:11px;letter-spacing:4px;color:var(--gold);margin:20px 0 8px}
+h1{
+  font-family:'Playfair Display',serif;font-weight:600;
+  font-size:clamp(35px,7vw,68px);line-height:1.1;margin:5px 0;
+  color:var(--gold);
+  text-shadow:0 3px 35px rgba(237,185,99,.23);
 }
-.hero h2{
-  font-size:clamp(23px,5vw,40px);
-  font-weight:500;margin:0 0 15px;line-height:1.5
+.hero p{color:var(--muted);max-width:570px;line-height:1.9;font-size:14px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.gold-btn,.outline-btn{
+  border-radius:30px;padding:12px 23px;transition:.2s;
 }
-.hero h2 span{color:var(--gold)}
-.hero p{
-  max-width:650px;margin:0 auto 24px;
-  color:#e0cbbb;line-height:2;font-weight:300
+.gold-btn{
+  border:1px solid #f8df9f;
+  color:#32152a;background:linear-gradient(130deg,#f8e5ae,#c59b50);
+  box-shadow:0 8px 25px #0003;font-weight:600
 }
-.hero-symbols{font-size:26px;letter-spacing:12px;margin-bottom:20px}
-.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.hero-actions button{padding:14px 24px}
-#loading{
-  text-align:center;padding:12px;color:var(--gold);
-  font-size:13px;letter-spacing:1px
+.gold-btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.outline-btn{background:transparent;border:1px solid var(--gold2);color:var(--gold)}
+.outline-btn:hover{background:#ffffff0c}
+.status-pill{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 13px;
+  border:1px solid var(--border);border-radius:30px;
+  font-size:12px;color:var(--gold);background:#16081777
 }
-.section-heading{text-align:center;margin:38px 0 24px}
-.section-heading h2{font-size:25px;color:var(--gold);font-weight:500}
-.section-heading p{color:var(--muted);font-size:13px}
-.grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:17px
-}
+.status-dot{width:7px;height:7px;background:#9bdd9b;border-radius:50%;box-shadow:0 0 10px #9bdd9b}
+.status-dot.closed{background:#e88d93;box-shadow:0 0 10px #e88d93}
+.section{padding:35px 16px 65px;max-width:1050px;margin:auto}
+.section-title{text-align:center;margin-bottom:26px}
+.section-title .eyebrow{margin-top:0}
+h2{font-family:'Playfair Display','Kanit',serif;color:var(--gold);font-size:clamp(25px,4vw,36px);margin:7px 0}
+.section-title p{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .card{
-  position:relative;overflow:hidden;
-  padding:24px;border:1px solid #b48a4a60;
-  border-radius:13px;
-  background:linear-gradient(145deg,#421b2bbd,#1c0b17f5);
-  box-shadow:0 14px 35px #0002;
-  transition:transform .3s,border-color .3s,box-shadow .3s
+  background:linear-gradient(145deg,rgba(87,35,67,.76),rgba(31,12,32,.9));
+  border:1px solid var(--border);border-radius:19px;padding:22px;
+  box-shadow:0 15px 45px #0002;min-width:0;
 }
-.card:before{
-  content:"";position:absolute;left:18px;right:18px;top:0;height:1px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent)
-}
-.card:hover{
-  transform:translateY(-5px);border-color:#edc46c;
-  box-shadow:0 15px 38px #d39c3c18
-}
-.service-icon{font-size:30px;margin-bottom:12px}
-.card h3{color:var(--gold);font-weight:500;margin:0 0 10px}
-.card p{color:#d3bdaf;line-height:1.9;font-size:14px}
-.card .price{color:var(--gold);font-size:22px}
-.card .muted{color:var(--muted)}
-form{margin-top:12px}
-label{display:block;margin:15px 0 7px;color:#f2d9ad;font-size:14px}
+.card h3{color:var(--gold);margin:0 0 14px;font-weight:500;font-size:19px}
+.card p.help{font-size:12px;color:var(--muted);line-height:1.8}
+label{display:block;color:#f2dcae;font-size:13px;margin:13px 0 6px}
 input,select,textarea{
-  width:100%;padding:12px 13px;border-radius:7px;
-  border:1px solid #8b633c80;background:#170a12;
-  color:#fff2dc;outline:none
+  display:block;width:100%;padding:12px 13px;border-radius:10px;
+  color:#fff5df;background:#1c0a20;border:1px solid #76506c;
 }
-input:focus,select:focus,textarea:focus{
-  border-color:var(--gold);box-shadow:0 0 0 3px #f3d18415
+input::placeholder,textarea::placeholder{color:#bda7b8}
+select option{background:#260d25;color:#fff}
+textarea{resize:vertical;min-height:75px}
+.full{width:100%;margin-top:15px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.notice{
+  border:1px solid var(--border);border-radius:12px;padding:12px;
+  font-size:12px;color:var(--muted);line-height:1.8;background:#19091c;
+  white-space:pre-wrap;overflow-wrap:anywhere;margin-top:12px
 }
-input::placeholder{color:#9e817b}
-input[type=file]{font-size:12px}
-small,.muted{color:var(--muted);line-height:1.8}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.actions button{flex:1}
-.status{
-  margin-top:16px;padding:15px;border-radius:8px;
-  border:1px solid #bd914a66;background:#180a13;
-  color:var(--gold);white-space:pre-wrap;overflow-wrap:anywhere;
-  line-height:1.9;font-size:14px
+.result{margin-top:14px}
+.result:empty{display:none}
+.message{padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.message.ok{background:#193c2d;border:1px solid #4e9b71;color:#d5ffe2}
+.message.error{background:#491e2c;border:1px solid #a64d68;color:#ffe0e8}
+.message.info{background:#30223c;border:1px solid #765c90;color:#f2e6ff}
+.big-code{font-family:'Playfair Display',serif;font-size:clamp(21px,4vw,30px);color:var(--gold);overflow-wrap:anywhere}
+.data-list{display:grid;gap:10px;margin-top:14px}
+.data-item{padding:12px;border-radius:10px;background:#170817;border:1px solid #59374e;font-size:13px;line-height:1.9;overflow-wrap:anywhere}
+.data-item strong{color:var(--gold)}
+.small{font-size:12px;color:var(--muted)}
+.admin-tools{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.admin-tools button{flex:1}
+.admin-queue{border:1px solid var(--border);border-radius:13px;padding:14px;margin:12px 0;background:#1c0b20}
+.admin-queue .queue-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.admin-queue .queue-head strong{color:var(--gold)}
+.admin-queue .row2{margin-top:8px}
+.admin-queue label{margin-top:8px}
+.admin-queue select,.admin-queue input{padding:9px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:#1a091b;border:1px solid var(--border);padding:12px 6px;border-radius:12px;text-align:center}
+.stat b{display:block;color:var(--gold);font-size:22px}
+.stat span{font-size:11px;color:var(--muted)}
+footer{text-align:center;padding:30px 15px 45px;border-top:1px solid var(--border);color:var(--muted);font-size:12px}
+footer .mandala{font-size:28px;margin-bottom:12px}
+.hidden{display:none!important}
+.loading{opacity:.7;pointer-events:none}
+.file-hint{font-size:11px;color:var(--muted);margin-top:6px}
+hr{border:0;border-top:1px solid var(--border);margin:18px 0}
+@media(max-width:720px){
+  .grid{grid-template-columns:1fr}
+  .hero{min-height:440px;padding-top:55px}
+  .topbar{align-items:flex-start;flex-direction:column}
+  .navlinks{width:100%}
+  .navlinks button{padding:7px 10px}
+  .section{padding-left:13px;padding-right:13px}
+  .card{padding:18px}
 }
-.form-card{max-width:720px;margin:20px auto}
-.form-card h2{color:var(--gold);font-weight:500}
-.admin-title{color:var(--gold)}
-.queue-item{
-  padding:17px 0;border-bottom:1px solid #74502f60;
-  overflow-wrap:anywhere
-}
-.queue-item strong{color:var(--gold)}
-.queue-item select,.queue-item input{margin-top:9px}
-.queue-item a{display:inline-block;margin:9px 0;color:var(--gold)}
-hr{border:0;border-top:1px solid #9c713c55;margin:25px 0}
-footer{
-  position:relative;z-index:2;text-align:center;
-  padding:32px 20px 45px;border-top:1px solid #c39a4a35;
-  color:#c7a995;font-size:12px;letter-spacing:1px;
-  background:linear-gradient(180deg,transparent,#10070b80)
-}
-.footer-symbol{color:var(--gold);font-size:20px;margin-bottom:12px}
-@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@keyframes goldGlow{0%,100%{text-shadow:0 0 5px #eacb77}50%{text-shadow:0 0 20px #f8d78a,0 0 35px #e8a23b}}
-@media(max-width:600px){
-  header{padding-top:28px}
-  .logo-wrap{width:88px;height:88px}
-  .logo-inner{font-size:38px}
-  .brand-sub{letter-spacing:3px}
-  nav{gap:7px}
-  nav button{padding:9px 11px;font-size:13px}
-  main{padding-left:13px;padding-right:13px}
-  .hero{padding:38px 18px 32px}
-  .card{padding:20px}
-  .page-frame{inset:5px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}
+@media(max-width:390px){
+  .row2{grid-template-columns:1fr}
+  .mandala{font-size:58px}
 }
 </style>
 </head>
 <body>
-<canvas id="particles"></canvas>
-<div class="ambient"></div>
-<div class="page-frame"></div>
+<div id="particles"></div>
 
-<header>
-  <div class="crown">✧ ❖ ✧</div>
-  <div class="logo-wrap"><div class="logo-inner">🔮</div></div>
-  <h1>TARO HUB</h1>
-  <div class="brand-sub">BY AUMBOON</div>
-  <div class="gold-rule"><span>❖</span></div>
-  <div style="font-size:12px;color:#d9b994;letter-spacing:2px">
-    THE ROYAL MYSTICAL EXPERIENCE
-  </div>
+<!-- API transport: Apps Script returns HTML that posts a message to this page -->
+<iframe name="apiFrame" id="apiFrame" title="API transport" hidden></iframe>
+<form id="apiForm" method="post" target="apiFrame" hidden>
+  <input type="hidden" name="payload" id="apiPayload">
+</form>
+
+<div class="page">
+<header class="topbar">
+  <div class="brand-small">✦ TARO HUB BY AUMBOON ✦</div>
+  <nav class="navlinks" aria-label="เมนูหลัก">
+    <button onclick="goTo('booking')">จองคิว</button>
+    <button onclick="goTo('lookup')">ตรวจสอบคิว</button>
+    <button onclick="goTo('admin')">ผู้ดูแลระบบ</button>
+  </nav>
 </header>
 
-<nav>
-  <button onclick="showPage('home')">✧ หน้าหลัก</button>
-  <button onclick="showPage('book')">🪷 จองคิวดูดวง</button>
-  <button onclick="showPage('lookup')">✦ ตรวจสอบคิว</button>
-  <button onclick="showPage('admin')">♛ แอดมิน</button>
-</nav>
+<section class="hero">
+  <div class="mandala">❋</div>
+  <div class="eyebrow">THE ROYAL INDIAN TAROT EXPERIENCE</div>
+  <h1>TARO HUB</h1>
+  <div style="font-family:'Playfair Display',serif;color:#fff0ce;letter-spacing:5px;font-size:14px;margin-top:10px">BY AUMBOON</div>
+  <p>ก้าวเข้าสู่โลกแห่งไพ่และเรื่องราวอันลึกลับ<br>สัมผัสประสบการณ์การดูดวงในบรรยากาศราชสำนักอินเดีย</p>
+  <div id="publicStatus" class="status-pill"><span class="status-dot"></span> กำลังตรวจสอบสถานะคิว...</div>
+  <div class="hero-actions">
+    <button class="gold-btn" onclick="goTo('booking')">✦ สำรองคิวของคุณ</button>
+    <button class="outline-btn" onclick="goTo('lookup')">ตรวจสอบคิว →</button>
+  </div>
+</section>
 
 <main>
-  <div id="loading">กำลังเปิดประตูสู่โลกแห่งไพ่พยากรณ์...</div>
+<section class="section" id="booking">
+  <div class="section-title">
+    <div class="eyebrow">RESERVATION</div>
+    <h2>จองคิวดูดวง</h2>
+    <p>เลือกบริการที่ต้องการ แล้วกรอกข้อมูลให้ครบถ้วน</p>
+  </div>
 
-  <section id="home" class="page">
-    <div class="hero">
-      <div class="mandala"></div>
-      <div class="hero-content">
-        <div class="hero-symbols">🪷 ✨ 🔮</div>
-        <div class="eyebrow">WELCOME TO THE ROYAL PALACE</div>
-        <h2>เปิดประตูสู่โลกแห่ง<br><span>ศาสตร์แห่งไพ่พยากรณ์</span></h2>
-        <div class="gold-rule"><span>✦</span></div>
-        <p>
-          ยินดีต้อนรับสู่ TARO HUB BY AUMBOON<br>
-          สัมผัสบรรยากาศมนตร์เสน่ห์แห่งอินเดีย
-          พร้อมพื้นที่สำหรับการดูไพ่เพื่อความบันเทิง
-          และค้นพบมุมมองใหม่ให้กับตัวเอง
-        </p>
-        <div class="hero-actions">
-          <button class="primary" onclick="showPage('book')">✧ เปิดประสบการณ์ · จองคิว</button>
-          <button onclick="showPage('lookup')">ตรวจสอบคิวของฉัน</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-heading">
-      <h2>✦ ศาสตร์แห่งไพ่พยากรณ์ ✦</h2>
-      <p>เลือกประสบการณ์ที่เหมาะกับคำถามของคุณ</p>
-    </div>
-
-    <div class="grid">
-      <div class="card">
-        <div class="service-icon">🪷</div>
-        <h3>ดูไพ่ทั่วไป</h3>
-        <p>สำรวจมุมมองใหม่ผ่านสัญลักษณ์และเรื่องราวของไพ่</p>
-      </div>
-      <div class="card">
-        <div class="service-icon">🪔</div>
-        <h3>คำถามเฉพาะเรื่อง</h3>
-        <p>เลือกหัวข้อที่อยากสำรวจและใช้เวลาไปกับคำถามของคุณ</p>
-      </div>
-      <div class="card">
-        <div class="service-icon">🌙</div>
-        <h3>คิวฟรี</h3>
-        <p>เลือกบริการฟรีได้เมื่อมีบริการดังกล่าวเปิดให้จอง</p>
-      </div>
-    </div>
-    <p style="text-align:center;color:#bca28f;font-size:12px;line-height:2;margin:25px auto">
-      การอ่านไพ่จัดทำเพื่อความบันเทิงและการทบทวนตัวเอง<br>
-      ไม่ใช่คำยืนยันเหตุการณ์ในอนาคต
-    </p>
-  </section>
-
-  <section id="book" class="page hidden">
-    <div class="card form-card">
-      <div class="service-icon">🪷</div>
-      <h2>จองคิวดูดวง</h2>
-      <p class="muted">กรอกข้อมูลให้ครบเพื่อรับรหัสคิวของคุณ</p>
+  <div class="grid">
+    <div class="card">
+      <h3>✧ รายละเอียดการจอง</h3>
+      <div id="bookingClosed" class="message error hidden">ขณะนี้ปิดรับคิวชั่วคราว โปรดกลับมาตรวจสอบใหม่อีกครั้ง</div>
       <form id="bookingForm">
-        <label for="name">ชื่อที่ใช้จอง</label>
-        <input id="name" maxlength="80" required placeholder="กรอกชื่อของคุณ">
+        <label for="customerName">ชื่อผู้จอง *</label>
+        <input id="customerName" maxlength="80" autocomplete="name" required placeholder="กรอกชื่อของคุณ">
 
-        <label for="phone">เบอร์โทรศัพท์</label>
-        <input id="phone" maxlength="25" required inputmode="tel" placeholder="เบอร์โทรศัพท์สำหรับตรวจสอบคิว">
+        <div class="row2">
+          <div>
+            <label for="customerPhone">เบอร์โทรศัพท์ *</label>
+            <input id="customerPhone" maxlength="25" inputmode="tel" autocomplete="tel" required placeholder="08XXXXXXXX">
+          </div>
+          <div>
+            <label for="customerContact">LINE หรือช่องทางติดต่อ</label>
+            <input id="customerContact" maxlength="80" placeholder="LINE ID (ถ้ามี)">
+          </div>
+        </div>
 
-        <label for="contact">ช่องทางติดต่อเพิ่มเติม (ไม่บังคับ)</label>
-        <input id="contact" maxlength="80" placeholder="เช่น LINE ID">
+        <label for="serviceSelect">เลือกบริการ *</label>
+        <select id="serviceSelect" required>
+          <option value="">กำลังโหลดบริการ...</option>
+        </select>
+        <div id="servicePrice" class="notice">กำลังโหลดข้อมูลบริการ...</div>
 
-        <label for="service">เลือกบริการ</label>
-        <select id="service" required><option value="">กำลังโหลดบริการ...</option></select>
-        <div id="servicePrice" class="price" style="color:var(--gold);margin-top:12px"></div>
-
-        <label for="paymentType">วิธีชำระเงิน</label>
-        <select id="paymentType">
-          <option value="now">ชำระแล้วและแนบสลิป</option>
-          <option value="later">รอชำระเงิน</option>
+        <label for="paymentType">รูปแบบการชำระเงิน *</label>
+        <select id="paymentType" required>
           <option value="free">คิวฟรี</option>
+          <option value="now">ชำระแล้วและแนบสลิป</option>
+          <option value="later">รอชำระเงินภายหลัง</option>
         </select>
 
-        <div id="slipArea">
-          <label for="slip">แนบสลิป (PNG / JPG / WEBP)</label>
-          <input id="slip" type="file" accept="image/png,image/jpeg,image/webp">
-          <small>รองรับไฟล์ภาพขนาดไม่เกินประมาณ 1 MB</small>
+        <div id="slipGroup" class="hidden">
+          <label for="slipFile">แนบสลิปการชำระเงิน *</label>
+          <input id="slipFile" type="file" accept="image/png,image/jpeg,image/webp">
+          <div class="file-hint">รองรับ PNG, JPG และ WEBP ควรใช้รูปขนาดไม่ใหญ่เกินไป</div>
         </div>
-        <div class="actions">
-          <button class="primary" id="bookButton" type="submit">✧ ยืนยันการจอง</button>
-        </div>
-        <div id="bookStatus" class="status hidden"></div>
+
+        <div id="paymentNote" class="notice">กำลังโหลดคำแนะนำการชำระเงิน...</div>
+        <button id="bookButton" type="submit" class="gold-btn full">✦ ยืนยันการจองคิว</button>
+      </form>
+      <div id="bookingResult" class="result" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <h3>✧ ก่อนสำรองคิว</h3>
+      <p class="help">กรุณาตรวจสอบชื่อ เบอร์โทรศัพท์ และบริการก่อนยืนยันการจอง หากเลือกชำระเงินพร้อมแนบสลิป กรุณาเลือกภาพที่ชัดเจน</p>
+      <hr>
+      <div class="notice">
+        ✦ รหัสคิวจะแสดงหลังระบบบันทึกการจองสำเร็จ
+        ✦ โปรดเก็บรหัสคิวและเบอร์โทรศัพท์ไว้ใช้ตรวจสอบ
+        ✦ สถานะการชำระเงินอาจต้องรอผู้ดูแลตรวจสอบ
+        ✦ บริการนี้จัดทำเพื่อความบันเทิงและการรับฟัง ไม่ใช่คำแนะนำทางการแพทย์ การเงิน หรือกฎหมาย
+      </div>
+      <div style="text-align:center;padding:24px 0 8px">
+        <div class="mandala" style="font-size:48px">❋</div>
+        <div style="color:var(--gold);font-family:'Playfair Display',serif;letter-spacing:2px">YOUR JOURNEY BEGINS HERE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="lookup">
+  <div class="section-title">
+    <div class="eyebrow">QUEUE TRACKING</div>
+    <h2>ตรวจสอบสถานะคิว</h2>
+    <p>ใช้รหัสคิวและเบอร์โทรศัพท์ที่ใช้จอง</p>
+  </div>
+  <div class="card" style="max-width:650px;margin:auto">
+    <form id="lookupForm">
+      <label for="lookupId">รหัสคิว</label>
+      <input id="lookupId" required placeholder="เช่น TH261027-ABCDE" autocomplete="off">
+      <label for="lookupPhone">เบอร์โทรศัพท์ที่ใช้จอง</label>
+      <input id="lookupPhone" required inputmode="tel" placeholder="กรอกเบอร์โทรศัพท์">
+      <button class="gold-btn full" id="lookupButton" type="submit">⌕ ตรวจสอบสถานะ</button>
+    </form>
+    <div id="lookupResult" class="result" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="section" id="admin">
+  <div class="section-title">
+    <div class="eyebrow">ROYAL CONTROL ROOM</div>
+    <h2>ผู้ดูแลระบบ</h2>
+    <p>พื้นที่สำหรับจัดการคิวและการตั้งค่าร้าน</p>
+  </div>
+  <div class="card">
+    <div id="adminLoginPanel">
+      <h3>🔐 เข้าสู่ระบบแอดมิน</h3>
+      <form id="adminLoginForm">
+        <label for="adminPassword">รหัสผ่านแอดมิน</label>
+        <input id="adminPassword" type="password" autocomplete="current-password" required placeholder="กรอกรหัสผ่าน">
+        <button class="gold-btn full" id="adminLoginButton" type="submit">เข้าสู่ระบบ</button>
       </form>
     </div>
-  </section>
-
-  <section id="lookup" class="page hidden">
-    <div class="card form-card">
-      <div class="service-icon">🔮</div>
-      <h2>ตรวจสอบสถานะคิว</h2>
-      <p class="muted">กรอกรหัสคิวและเบอร์โทรศัพท์ที่ใช้จอง</p>
-      <form id="lookupForm">
-        <label for="lookupId">รหัสคิว</label>
-        <input id="lookupId" required placeholder="รหัสคิวที่ได้รับหลังจอง">
-        <label for="lookupPhone">เบอร์โทรศัพท์</label>
-        <input id="lookupPhone" required inputmode="tel" placeholder="เบอร์โทรศัพท์ที่ใช้จอง">
-        <div class="actions"><button class="primary" type="submit">ตรวจสอบสถานะ ✧</button></div>
-      </form>
-      <div id="lookupStatus" class="status hidden"></div>
-    </div>
-  </section>
-
-  <section id="admin" class="page hidden">
-    <div class="card form-card">
-      <div class="service-icon">♛</div>
-      <h2 class="admin-title">ห้องควบคุมราชสำนัก · Admin</h2>
-      <div id="adminLoginArea">
-        <p class="muted">เข้าสู่ระบบด้วยรหัสผ่านแอดมินที่ตั้งไว้ใน Apps Script</p>
-        <form id="adminLoginForm">
-          <label for="adminPassword">รหัสผ่านแอดมิน</label>
-          <input id="adminPassword" type="password" required autocomplete="current-password">
-          <div class="actions"><button class="primary" type="submit">เข้าสู่ระบบ</button></div>
-        </form>
+    <div id="adminPanel" class="hidden">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h3 style="margin:0">✦ แดชบอร์ดแอดมิน</h3>
+        <button class="outline-btn" onclick="adminLogout()">ออกจากระบบ</button>
       </div>
-      <div id="adminPanel" class="hidden">
-        <div class="actions">
-          <button onclick="loadAdmin()">รีเฟรชข้อมูล</button>
-          <button onclick="toggleQueue()">เปิด / ปิดรับคิว</button>
-          <button onclick="logoutAdmin()">ออกจากระบบ</button>
-        </div>
-        <div id="adminStatus" class="status"></div>
-        <hr>
-        <h3 style="color:var(--gold)">✦ รายการคิวทั้งหมด</h3>
-        <div id="adminQueues"></div>
+      <div id="adminStats" class="stat-grid"></div>
+      <div class="admin-tools">
+        <button class="outline-btn" onclick="refreshAdmin()">↻ รีเฟรชข้อมูล</button>
+        <button class="outline-btn" onclick="showSettings()">⚙ ตั้งค่าร้าน</button>
       </div>
-      <div id="adminStatus" class="status hidden"></div>
+      <div id="settingsPanel" class="notice hidden">
+        <h3>ตั้งค่าร้าน</h3>
+        <label for="adminOpen">สถานะการรับคิว</label>
+        <select id="adminOpen">
+          <option value="true">เปิดรับคิว</option>
+          <option value="false">ปิดรับคิว</option>
+        </select>
+        <label for="adminPaymentNote">ข้อความแจ้งการชำระเงิน</label>
+        <textarea id="adminPaymentNote" maxlength="500"></textarea>
+        <button class="gold-btn full" onclick="saveAdminSettings()">บันทึกการตั้งค่า</button>
+        <p class="small">การแก้ไขรายการบริการในชีต Services จะมีผลต่อรายการที่ลูกค้าเลือกได้</p>
+      </div>
+      <hr>
+      <h3>รายการคิวทั้งหมด</h3>
+      <div id="adminQueues" class="data-list"></div>
     </div>
-  </section>
+    <div id="adminResult" class="result" aria-live="polite"></div>
+  </div>
+</section>
 </main>
 
 <footer>
-  <div class="footer-symbol">✧ ❖ 🪷 ❖ ✧</div>
-  <div style="font-family:'Cinzel',serif;color:var(--gold);font-size:15px;margin-bottom:8px">
-    TARO HUB BY AUMBOON
-  </div>
-  THE ROYAL MYSTICAL EXPERIENCE<br>
-  <span style="display:inline-block;margin-top:12px">ดูไพ่เพื่อความบันเทิงและการทบทวนตัวเอง</span>
+  <div class="mandala">❋</div>
+  <div style="font-family:'Playfair Display',serif;color:var(--gold);letter-spacing:3px">TARO HUB BY AUMBOON</div>
+  <p>✦ ความลึกลับ ความสงบ และเรื่องราวของไพ่ ✦</p>
+  <div>จัดทำเพื่อความบันเทิง</div>
 </footer>
+</div>
 
 <script>
-/* Keep the existing Apps Script API connection */
-const API_URL = "https://script.google.com/macros/s/AKfycbzrMErM6oFEgeuIqevfKr7lGeagFZiuM9_mXdcjA8j0bAZDFax5WN4PQ__CnMxAK9X8/exec";
+'use strict';
 
-let publicInfo = {open:false,services:[],paymentNote:""};
-let adminToken = "";
-let adminData = null;
-let busy = false;
+/* ===== CONFIGURATION ===== */
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwM5XedSlBmQ4Z4s48-5PrrqExwZl965C-VhFVfTtmoM_7Vqr-QGDhul9OGZyI3fHM8/exec';
 
-function showPage(id) {
-  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-  window.scrollTo({top:0,behavior:"smooth"});
-  if(id==="admin" && adminToken) loadAdmin();
+let publicInfo = {open:false, paymentNote:'', services:[]};
+let adminToken = '';
+let adminDataCache = null;
+const pendingRequests = new Map();
+
+const $ = id => document.getElementById(id);
+const money = value => new Intl.NumberFormat('th-TH',{
+  style:'currency',currency:'THB',maximumFractionDigits:0
+}).format(Number(value)||0);
+
+function goTo(id){
+  $(id).scrollIntoView({behavior:'smooth',block:'start'});
 }
-function setStatus(id,message,error=false) {
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.textContent=message;
-  el.classList.remove("hidden");
-  el.style.color=error?"#ffb1b1":"#f5d78c";
+
+function showMessage(id,text,type='info'){
+  const el=$(id);
+  el.replaceChildren();
+  const box=document.createElement('div');
+  box.className='message '+type;
+  box.textContent=text;
+  el.appendChild(box);
 }
-function api(action,data={}) {
+function clearMessage(id){$(id).replaceChildren()}
+
+function setBusy(button,busy,label){
+  button.disabled=busy;
+  if(busy){
+    button.dataset.oldLabel=button.textContent;
+    button.textContent=label||'กำลังดำเนินการ...';
+  }else{
+    button.textContent=button.dataset.oldLabel||button.textContent;
+  }
+}
+
+/*
+ * ใช้ POST form + iframe ให้ตรงกับ Code.gs:
+ * doPost(e) อ่าน JSON จาก e.parameter.payload
+ * responsePage_() ส่งผลกลับด้วย parent.postMessage()
+ */
+function api(action,data={}){
   return new Promise((resolve,reject)=>{
-    const requestId="r"+Date.now()+Math.random().toString(16).slice(2);
-    const frame=document.createElement("iframe");
-    frame.name="api_"+requestId;
-    frame.style.display="none";
-    const form=document.createElement("form");
-    form.method="POST";form.action=API_URL;form.target=frame.name;
-    form.style.display="none";
-    const input=document.createElement("input");
-    input.type="hidden";input.name="payload";
-    input.value=JSON.stringify({...data,action,requestId});
-    form.appendChild(input);
-    let finished=false;
-    const cleanup=()=>{
-      window.removeEventListener("message",onMessage);
-      form.remove();frame.remove();
-    };
+    const requestId='req_'+Date.now()+'_'+Math.random().toString(36).slice(2);
     const timer=setTimeout(()=>{
-      if(finished)return;
-      finished=true;cleanup();
-      reject(new Error("เชื่อมต่อไม่สำเร็จ กรุณาตรวจสอบ URL และการ Deploy Web App"));
-    },25000);
-    const onMessage=event=>{
-      if(event.source!==frame.contentWindow)return;
-      const msg=event.data;
-      if(!msg||msg.requestId!==requestId||!msg.response||finished)return;
-      finished=true;clearTimeout(timer);cleanup();
-      if(msg.response.ok)resolve(msg.response.data);
-      else reject(new Error(msg.response.error||"เกิดข้อผิดพลาด"));
-    };
-    window.addEventListener("message",onMessage);
-    document.body.append(frame,form);
+      pendingRequests.delete(requestId);
+      reject(new Error('หมดเวลารอการตอบกลับ ตรวจสอบการ Deploy ของ Apps Script แล้วลองใหม่'));
+    },30000);
+
+    pendingRequests.set(requestId,{resolve,reject,timer});
+
+    const form=$('apiForm');
+    $('apiPayload').value=JSON.stringify({action,...data,requestId});
+    form.action=SCRIPT_URL;
     form.submit();
   });
 }
 
-function renderServices() {
-  const select=document.getElementById("service");
-  select.replaceChildren();
-  if(!publicInfo.services.length) {
-    const option=document.createElement("option");
-    option.value="";option.textContent="ยังไม่มีบริการที่เปิดใช้งาน";
-    select.appendChild(option);return;
+window.addEventListener('message',event=>{
+  const packet=event.data;
+  if(!packet || typeof packet!=='object' || !packet.requestId) return;
+  const pending=pendingRequests.get(packet.requestId);
+  if(!pending) return;
+
+  clearTimeout(pending.timer);
+  pendingRequests.delete(packet.requestId);
+
+  const response=packet.response;
+  if(!response){
+    pending.reject(new Error('รูปแบบข้อมูลตอบกลับไม่ถูกต้อง'));
+  }else if(response.ok){
+    pending.resolve(response.data);
+  }else{
+    pending.reject(new Error(response.error||'เกิดข้อผิดพลาดจากเซิร์ฟเวอร์'));
   }
-  publicInfo.services.forEach(s=>{
-    const option=document.createElement("option");
-    option.value=s.id;
-    option.textContent=s.name+(s.price?" — "+s.price+" บาท":" — ฟรี");
+});
+
+function makeParticles(){
+  const root=$('particles');
+  for(let i=0;i<30;i++){
+    const s=document.createElement('span');
+    s.className='spark';
+    s.textContent=Math.random()>.5?'✦':'·';
+    s.style.left=(Math.random()*100)+'%';
+    s.style.top=(Math.random()*100)+'%';
+    s.style.fontSize=(8+Math.random()*15)+'px';
+    s.style.animationDuration=(12+Math.random()*22)+'s';
+    s.style.animationDelay=(-Math.random()*25)+'s';
+    root.appendChild(s);
+  }
+}
+
+function updateStatus(){
+  const el=$('publicStatus');
+  const dot=el.querySelector('.status-dot');
+  if(publicInfo.open){
+    dot.classList.remove('closed');
+    el.lastChild.textContent=' เปิดรับคิวอยู่';
+    $('bookingClosed').classList.add('hidden');
+    $('bookButton').disabled=false;
+  }else{
+    dot.classList.add('closed');
+    el.lastChild.textContent=' ปิดรับคิวชั่วคราว';
+    $('bookingClosed').classList.remove('hidden');
+    $('bookButton').disabled=true;
+  }
+  $('paymentNote').textContent=publicInfo.paymentNote||'กรุณาตรวจสอบรายละเอียดก่อนชำระเงิน';
+}
+
+function populateServices(){
+  const select=$('serviceSelect');
+  select.replaceChildren();
+  const first=document.createElement('option');
+  first.value='';
+  first.textContent=publicInfo.services.length?'เลือกบริการที่ต้องการ':'ไม่พบรายการบริการ';
+  select.appendChild(first);
+
+  publicInfo.services.forEach(service=>{
+    const option=document.createElement('option');
+    option.value=service.id;
+    option.textContent=service.name+' — '+(Number(service.price)===0?'ฟรี':money(service.price));
     select.appendChild(option);
   });
-  updateServicePrice();
+  updateServiceDetails();
 }
-function selectedService() {
-  return publicInfo.services.find(s=>s.id===document.getElementById("service").value);
-}
-function updateServicePrice() {
-  const s=selectedService(),type=document.getElementById("paymentType");
-  document.getElementById("servicePrice").textContent=
-    s?(s.price?"ราคา "+s.price+" บาท":"ไม่มีค่าใช้จ่าย"):"";
-  const free=type.querySelector('[value="free"]');
-  const later=type.querySelector('[value="later"]');
-  const now=type.querySelector('[value="now"]');
-  if(s&&s.price===0) {
-    type.value="free";free.disabled=false;later.disabled=true;now.disabled=true;
-  } else if(s) {
-    free.disabled=true;later.disabled=false;now.disabled=false;
-    if(type.value==="free")type.value="now";
-  }
-  updatePaymentArea();
-}
-function updatePaymentArea() {
-  document.getElementById("slipArea").classList.toggle(
-    "hidden",document.getElementById("paymentType").value!=="now"
-  );
-}
-document.getElementById("service").addEventListener("change",updateServicePrice);
-document.getElementById("paymentType").addEventListener("change",updatePaymentArea);
 
-function fileToDataURL(file) {
+function getSelectedService(){
+  return publicInfo.services.find(s=>String(s.id)===$('serviceSelect').value);
+}
+
+function updateServiceDetails(){
+  const service=getSelectedService();
+  const payment=$('paymentType');
+  if(!service){
+    $('servicePrice').textContent='กรุณาเลือกบริการเพื่อดูราคา';
+    $('slipGroup').classList.add('hidden');
+    return;
+  }
+  const isFree=Number(service.price)===0;
+  $('servicePrice').textContent='บริการ: '+service.name+'\nราคา: '+(isFree?'ฟรี':money(service.price));
+  const freeOption=payment.querySelector('option[value="free"]');
+  freeOption.disabled=!isFree;
+  payment.value=isFree?'free':'now';
+  $('slipGroup').classList.toggle('hidden',isFree||payment.value!=='now');
+}
+
+$('serviceSelect').addEventListener('change',updateServiceDetails);
+$('paymentType').addEventListener('change',()=>{
+  const service=getSelectedService();
+  if(service && Number(service.price)===0) $('paymentType').value='free';
+  $('slipGroup').classList.toggle('hidden',$('paymentType').value!=='now');
+});
+
+async function loadPublicInfo(){
+  try{
+    const info=await api('publicInfo');
+    publicInfo={
+      open:!!info.open,
+      paymentNote:info.paymentNote||'',
+      services:Array.isArray(info.services)?info.services:[]
+    };
+    updateStatus();
+    populateServices();
+  }catch(error){
+    $('publicStatus').innerHTML='<span class="status-dot closed"></span> เชื่อมต่อระบบไม่สำเร็จ';
+    $('bookingClosed').classList.remove('hidden');
+    $('bookingClosed').textContent='โหลดข้อมูลไม่ได้: '+error.message;
+    $('serviceSelect').innerHTML='<option value="">ไม่สามารถโหลดบริการได้</option>';
+    $('paymentNote').textContent='กรุณาตรวจสอบ URL และการ Deploy ของ Apps Script';
+  }
+}
+
+/* ===== BOOKING ===== */
+$('bookingForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const button=$('bookButton');
+  clearMessage('bookingResult');
+
+  if(!publicInfo.open){
+    showMessage('bookingResult','ขณะนี้ปิดรับคิว','error');
+    return;
+  }
+  const service=getSelectedService();
+  if(!service){
+    showMessage('bookingResult','กรุณาเลือกบริการ','error');
+    return;
+  }
+
+  const paymentType=$('paymentType').value;
+  if(Number(service.price)===0 && paymentType!=='free'){
+    showMessage('bookingResult','บริการนี้เป็นคิวฟรี กรุณาเลือกคิวฟรี','error');
+    return;
+  }
+  if(Number(service.price)>0 && paymentType==='free'){
+    showMessage('bookingResult','บริการนี้ไม่ใช่คิวฟรี','error');
+    return;
+  }
+
+  let slipData='',slipName='';
+  if(paymentType==='now'){
+    const file=$('slipFile').files[0];
+    if(!file){
+      showMessage('bookingResult','กรุณาแนบสลิปการชำระเงิน','error');
+      return;
+    }
+    if(!['image/png','image/jpeg','image/webp'].includes(file.type)){
+      showMessage('bookingResult','ไฟล์ต้องเป็น PNG, JPG หรือ WEBP','error');
+      return;
+    }
+    if(file.size>950000){
+      showMessage('bookingResult','รูปมีขนาดใหญ่เกินไป กรุณาใช้รูปที่เล็กกว่า 950 KB','error');
+      return;
+    }
+    try{
+      slipData=await fileToDataURL(file);
+      slipName=file.name;
+    }catch(e){
+      showMessage('bookingResult','อ่านรูปสลิปไม่สำเร็จ','error');
+      return;
+    }
+  }
+
+  const payload={
+    name:$('customerName').value.trim(),
+    phone:$('customerPhone').value.trim(),
+    contact:$('customerContact').value.trim(),
+    serviceId:service.id,
+    paymentType,
+    slipData,
+    slipName
+  };
+
+  setBusy(button,true,'กำลังบันทึกการจอง...');
+  try{
+    const result=await api('book',payload);
+    const box=document.createElement('div');
+    box.className='message ok';
+
+    const title=document.createElement('div');
+    title.textContent='จองคิวสำเร็จ';
+    title.style.fontWeight='600';
+    box.appendChild(title);
+
+    const code=document.createElement('div');
+    code.className='big-code';
+    code.textContent=result.queueId||'-';
+    box.appendChild(code);
+
+    const details=document.createElement('div');
+    details.textContent=
+      'บริการ: '+(result.service||service.name)+
+      '\nราคา: '+money(result.amount)+
+      '\nสถานะชำระเงิน: '+paymentLabel(result.paymentStatus)+
+      '\nสถานะคิว: '+queueLabel(result.queueStatus)+
+      '\nโปรดบันทึกรหัสคิวและเบอร์โทรศัพท์ไว้ตรวจสอบ';
+    box.appendChild(details);
+
+    $('bookingResult').replaceChildren(box);
+    $('bookingForm').reset();
+    $('slipGroup').classList.add('hidden');
+    await loadPublicInfo();
+  }catch(error){
+    showMessage('bookingResult',error.message,'error');
+  }finally{
+    setBusy(button,false);
+  }
+});
+
+function fileToDataURL(file){
   return new Promise((resolve,reject)=>{
     const reader=new FileReader();
     reader.onload=()=>resolve(reader.result);
-    reader.onerror=()=>reject(new Error("อ่านไฟล์สลิปไม่สำเร็จ"));
+    reader.onerror=()=>reject(new Error('อ่านไฟล์ไม่สำเร็จ'));
     reader.readAsDataURL(file);
   });
 }
-document.getElementById("bookingForm").addEventListener("submit",async event=>{
+
+/* ===== LOOKUP ===== */
+$('lookupForm').addEventListener('submit',async event=>{
   event.preventDefault();
-  if(busy)return;
-  const service=selectedService();
-  if(!service)return setStatus("bookStatus","ไม่พบบริการที่เลือก",true);
-  if(!publicInfo.open)return setStatus("bookStatus","ขณะนี้ปิดรับคิว",true);
-  const paymentType=document.getElementById("paymentType").value;
-  const slip=document.getElementById("slip").files[0];
-  if(paymentType==="now"&&!slip)return setStatus("bookStatus","กรุณาแนบสลิปก่อนยืนยัน",true);
-  if(slip&&slip.size>1000000)return setStatus("bookStatus","ไฟล์สลิปต้องมีขนาดไม่เกินประมาณ 1 MB",true);
-  busy=true;
-  const button=document.getElementById("bookButton");
-  button.disabled=true;button.textContent="กำลังส่งข้อมูล...";
-  try {
-    const slipData=paymentType==="now"?await fileToDataURL(slip):"";
-    const result=await api("book",{
-      name:document.getElementById("name").value,
-      phone:document.getElementById("phone").value,
-      contact:document.getElementById("contact").value,
-      serviceId:service.id,paymentType,slipData,slipName:slip?slip.name:""
+  const button=$('lookupButton');
+  setBusy(button,true,'กำลังตรวจสอบ...');
+  clearMessage('lookupResult');
+  try{
+    const result=await api('lookup',{
+      queueId:$('lookupId').value.trim(),
+      phone:$('lookupPhone').value.trim()
     });
-    setStatus("bookStatus",
-      "จองคิวสำเร็จ! ✧\nรหัสคิว: "+result.queueId+
-      "\nบริการ: "+result.service+"\nราคา: "+result.amount+" บาท"+
-      "\nสถานะชำระเงิน: "+paymentLabel(result.paymentStatus)+
-      "\nโปรดเก็บรหัสคิวและเบอร์โทรศัพท์ไว้ตรวจสอบสถานะ");
-    document.getElementById("bookingForm").reset();
-    renderServices();
-  } catch(error) {setStatus("bookStatus",error.message,true);}
-  finally {busy=false;button.disabled=false;button.textContent="✧ ยืนยันการจอง";}
-});
-function paymentLabel(status) {
-  return ({FREE:"คิวฟรี",WAITING_PAYMENT:"รอชำระเงิน",WAITING_SLIP:"รอแนบสลิป",
-    PENDING_REVIEW:"รอตรวจสอบสลิป",PAID:"ชำระแล้ว",REJECTED:"ไม่ผ่านการตรวจสอบ"})[status]||status;
-}
-function queueLabel(status) {
-  return ({WAITING:"รอคิว",IN_PROGRESS:"กำลังให้บริการ",DONE:"เสร็จสิ้น",CANCELLED:"ยกเลิก"})[status]||status;
-}
-document.getElementById("lookupForm").addEventListener("submit",async event=>{
-  event.preventDefault();setStatus("lookupStatus","กำลังตรวจสอบ...");
-  try {
-    const result=await api("lookup",{
-      queueId:document.getElementById("lookupId").value,
-      phone:document.getElementById("lookupPhone").value
+    const box=document.createElement('div');
+    box.className='message ok';
+    const code=document.createElement('div');
+    code.className='big-code';
+    code.textContent=result.queueId||'-';
+    box.appendChild(code);
+
+    const list=document.createElement('div');
+    list.className='data-list';
+    const rows=[
+      ['ชื่อ',result.name],
+      ['บริการ',result.service],
+      ['ราคา',money(result.amount)],
+      ['การชำระเงิน',paymentLabel(result.paymentStatus)],
+      ['สถานะคิว',queueLabel(result.queueStatus)],
+      ['หมายเหตุ',result.note||'-']
+    ];
+    rows.forEach(([label,value])=>{
+      const item=document.createElement('div');
+      item.className='data-item';
+      const strong=document.createElement('strong');
+      strong.textContent=label+': ';
+      item.append(strong,document.createTextNode(value==null?'-':String(value)));
+      list.appendChild(item);
     });
-    setStatus("lookupStatus","รหัสคิว: "+result.queueId+"\nชื่อ: "+result.name+
-      "\nบริการ: "+result.service+"\nราคา: "+result.amount+" บาท"+
-      "\nสถานะคิว: "+queueLabel(result.queueStatus)+
-      "\nสถานะชำระเงิน: "+paymentLabel(result.paymentStatus)+
-      (result.note?"\nหมายเหตุ: "+result.note:""));
-  } catch(error) {setStatus("lookupStatus",error.message,true);}
+    box.appendChild(list);
+    $('lookupResult').replaceChildren(box);
+  }catch(error){
+    showMessage('lookupResult',error.message,'error');
+  }finally{
+    setBusy(button,false);
+  }
 });
 
-document.getElementById("adminLoginForm").addEventListener("submit",async event=>{
-  event.preventDefault();setStatus("adminStatus","กำลังเข้าสู่ระบบ...");
-  try {
-    const result=await api("adminLogin",{password:document.getElementById("adminPassword").value});
+function paymentLabel(status){
+  const labels={
+    FREE:'คิวฟรี',
+    WAITING_PAYMENT:'รอชำระเงิน',
+    WAITING_SLIP:'รอแนบสลิป',
+    PENDING_REVIEW:'รอตรวจสอบสลิป',
+    PAID:'ชำระเงินแล้ว',
+    REJECTED:'สลิปไม่ผ่านการตรวจสอบ'
+  };
+  return labels[status]||status||'-';
+}
+function queueLabel(status){
+  const labels={
+    WAITING:'รอคิว',
+    IN_PROGRESS:'กำลังให้บริการ',
+    DONE:'เสร็จสิ้น',
+    CANCELLED:'ยกเลิก'
+  };
+  return labels[status]||status||'-';
+}
+
+/* ===== ADMIN ===== */
+$('adminLoginForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  const button=$('adminLoginButton');
+  setBusy(button,true,'กำลังเข้าสู่ระบบ...');
+  clearMessage('adminResult');
+  try{
+    const result=await api('adminLogin',{
+      password:$('adminPassword').value
+    });
     adminToken=result.token;
-    document.getElementById("adminLoginArea").classList.add("hidden");
-    document.getElementById("adminPanel").classList.remove("hidden");
-    document.getElementById("adminPassword").value="";
-    await loadAdmin();
-  } catch(error) {setStatus("adminStatus",error.message,true);}
+    $('adminPassword').value='';
+    $('adminLoginPanel').classList.add('hidden');
+    $('adminPanel').classList.remove('hidden');
+    await refreshAdmin();
+  }catch(error){
+    showMessage('adminResult',error.message,'error');
+  }finally{
+    setBusy(button,false);
+  }
 });
-async function loadAdmin() {
+
+async function refreshAdmin(){
   if(!adminToken)return;
-  try {
-    adminData=await api("adminData",{token:adminToken});
-    setStatus("adminStatus","สถานะรับคิว: "+(adminData.open?"เปิดรับคิว":"ปิดรับคิว")+
-      "\nคิวทั้งหมด: "+adminData.stats.total+
-      "\nรอคิว: "+adminData.stats.waiting+
-      "\nเสร็จสิ้น: "+adminData.stats.done+
-      "\nรอตรวจสอบสลิป: "+adminData.stats.paymentReview+
-      "\nยอดที่ยืนยันว่าชำระแล้ว: "+adminData.stats.revenue+" บาท");
-    renderAdminQueues();
-  } catch(error) {
-    setStatus("adminStatus",error.message,true);
-    if(error.message.includes("เซสชันหมดอายุ"))logoutAdmin();
+  clearMessage('adminResult');
+  try{
+    const data=await api('adminData',{token:adminToken});
+    adminDataCache=data;
+    renderAdmin(data);
+  }catch(error){
+    showMessage('adminResult',error.message,'error');
+    if(/เซสชันหมดอายุ/.test(error.message)) adminLogout();
   }
 }
-function renderAdminQueues() {
-  const container=document.getElementById("adminQueues");
-  container.replaceChildren();
-  if(!adminData||!adminData.queues.length) {
-    container.textContent="ยังไม่มีรายการจองคิว";return;
+
+function renderAdmin(data){
+  const stats=data.stats||{};
+  $('adminStats').replaceChildren();
+  [
+    ['คิวทั้งหมด',stats.total],
+    ['รอคิว',stats.waiting],
+    ['รอตรวจสลิป',stats.paymentReview]
+  ].forEach(([label,value])=>{
+    const stat=document.createElement('div');
+    stat.className='stat';
+    const b=document.createElement('b');
+    b.textContent=Number(value)||0;
+    const span=document.createElement('span');
+    span.textContent=label;
+    stat.append(b,span);
+    $('adminStats').appendChild(stat);
+  });
+  $('adminOpen').value=String(!!data.open);
+  $('adminPaymentNote').value=publicInfo.paymentNote||'';
+
+  const root=$('adminQueues');
+  root.replaceChildren();
+  const queues=Array.isArray(data.queues)?data.queues:[];
+  if(!queues.length){
+    const empty=document.createElement('div');
+    empty.className='notice';
+    empty.textContent='ยังไม่มีรายการจองคิว';
+    root.appendChild(empty);
+    return;
   }
-  adminData.queues.forEach(q=>{
-    const item=document.createElement("div");item.className="queue-item";
-    const title=document.createElement("strong");
-    title.textContent=q.queueId+" · "+q.name;item.appendChild(title);
-    const details=document.createElement("p");details.className="muted";
-    details.textContent=q.service+" · "+q.amount+" บาท\nโทร: "+q.phone+
-      "\nชำระเงิน: "+paymentLabel(q.paymentStatus)+
-      "\nสถานะคิว: "+queueLabel(q.queueStatus);
-    item.appendChild(details);
-    if(q.slipUrl) {
-      const link=document.createElement("a");link.href=q.slipUrl;
-      link.target="_blank";link.rel="noopener noreferrer";
-      link.textContent="เปิดลิงก์สลิป";item.appendChild(link);
+
+  queues.forEach(queue=>{
+    const card=document.createElement('div');
+    card.className='admin-queue';
+
+    const head=document.createElement('div');
+    head.className='queue-head';
+    const title=document.createElement('strong');
+    title.textContent=queue.queueId+' · '+queue.name;
+    const amount=document.createElement('strong');
+    amount.textContent=money(queue.amount);
+    head.append(title,amount);
+    card.appendChild(head);
+
+    const details=document.createElement('div');
+    details.className='small';
+    details.style.marginTop='7px';
+    details.textContent=
+      'เบอร์: '+queue.phone+
+      ' | ติดต่อ: '+(queue.contact||'-')+
+      '\nบริการ: '+queue.service+
+      '\nเวลาจอง: '+(queue.createdAt?new Date(queue.createdAt).toLocaleString('th-TH'):'-');
+    card.appendChild(details);
+
+    if(queue.slipUrl){
+      const slip=document.createElement('p');
+      slip.className='small';
+      slip.append('มีไฟล์สลิปแนบไว้ใน Google Drive โปรดเปิดผ่านบัญชีที่มีสิทธิ์เข้าถึง');
+      card.appendChild(slip);
     }
-    const payment=document.createElement("select");
-    [["FREE","คิวฟรี"],["WAITING_PAYMENT","รอชำระเงิน"],["WAITING_SLIP","รอแนบสลิป"],
-     ["PENDING_REVIEW","รอตรวจสอบสลิป"],["PAID","ชำระแล้ว"],["REJECTED","ไม่ผ่านการตรวจสอบ"]]
-      .forEach(([value,label])=>{
-        const o=document.createElement("option");o.value=value;o.textContent=label;
-        payment.appendChild(o);
-      });
-    payment.value=q.paymentStatus;item.appendChild(payment);
-    const queue=document.createElement("select");
-    [["WAITING","รอคิว"],["IN_PROGRESS","กำลังให้บริการ"],["DONE","เสร็จสิ้น"],
-     ["CANCELLED","ยกเลิก"]].forEach(([value,label])=>{
-        const o=document.createElement("option");o.value=value;o.textContent=label;
-        queue.appendChild(o);
-      });
-    queue.value=q.queueStatus;item.appendChild(queue);
-    const note=document.createElement("input");note.placeholder="หมายเหตุถึงลูกค้า";
-    note.value=q.note||"";note.style.marginTop="8px";item.appendChild(note);
-    const save=document.createElement("button");save.className="primary";
-    save.style.marginTop="8px";save.textContent="บันทึกสถานะ";
-    save.addEventListener("click",async()=>{
-      save.disabled=true;
-      try {
-        await api("adminUpdate",{token:adminToken,queueId:q.queueId,
-          paymentStatus:payment.value,queueStatus:queue.value,note:note.value});
-        setStatus("adminStatus","บันทึกข้อมูล "+q.queueId+" สำเร็จ");
-        await loadAdmin();
-      } catch(error) {setStatus("adminStatus",error.message,true);}
-      finally {save.disabled=false;}
+
+    const row=document.createElement('div');
+    row.className='row2';
+
+    const payWrap=document.createElement('div');
+    const payLabel=document.createElement('label');
+    payLabel.textContent='สถานะชำระเงิน';
+    const pay=document.createElement('select');
+    [
+      ['FREE','คิวฟรี'],
+      ['WAITING_PAYMENT','รอชำระเงิน'],
+      ['WAITING_SLIP','รอแนบสลิป'],
+      ['PENDING_REVIEW','รอตรวจสลิป'],
+      ['PAID','ชำระแล้ว'],
+      ['REJECTED','สลิปไม่ผ่าน']
+    ].forEach(([value,label])=>addOption(pay,value,label));
+    pay.value=queue.paymentStatus;
+    payWrap.append(payLabel,pay);
+
+    const queueWrap=document.createElement('div');
+    const qLabel=document.createElement('label');
+    qLabel.textContent='สถานะคิว';
+    const qStatus=document.createElement('select');
+    [
+      ['WAITING','รอคิว'],
+      ['IN_PROGRESS','กำลังให้บริการ'],
+      ['DONE','เสร็จสิ้น'],
+      ['CANCELLED','ยกเลิก']
+    ].forEach(([value,label])=>addOption(qStatus,value,label));
+    qStatus.value=queue.queueStatus;
+    queueWrap.append(qLabel,qStatus);
+    row.append(payWrap,queueWrap);
+    card.appendChild(row);
+
+    const noteLabel=document.createElement('label');
+    noteLabel.textContent='หมายเหตุ';
+    const note=document.createElement('input');
+    note.value=queue.note||'';
+    note.maxLength=300;
+    note.placeholder='เพิ่มหมายเหตุให้คิวนี้';
+    card.append(noteLabel,note);
+
+    const save=document.createElement('button');
+    save.className='gold-btn full';
+    save.textContent='บันทึกการเปลี่ยนแปลง';
+    save.addEventListener('click',async()=>{
+      setBusy(save,true,'กำลังบันทึก...');
+      try{
+        await api('adminUpdate',{
+          token:adminToken,
+          queueId:queue.queueId,
+          paymentStatus:pay.value,
+          queueStatus:qStatus.value,
+          note:note.value
+        });
+        showMessage('adminResult','บันทึกคิว '+queue.queueId+' สำเร็จ','ok');
+        await refreshAdmin();
+      }catch(error){
+        showMessage('adminResult',error.message,'error');
+      }finally{
+        setBusy(save,false);
+      }
     });
-    item.appendChild(save);container.appendChild(item);
+    card.appendChild(save);
+    root.appendChild(card);
   });
 }
-async function toggleQueue() {
-  if(!adminToken||!adminData)return;
-  try {
-    await api("adminSettings",{token:adminToken,open:!adminData.open});
-    await loadAdmin();
-  } catch(error) {setStatus("adminStatus",error.message,true);}
-}
-function logoutAdmin() {
-  adminToken="";adminData=null;
-  document.getElementById("adminLoginArea").classList.remove("hidden");
-  document.getElementById("adminPanel").classList.add("hidden");
-  setStatus("adminStatus","ออกจากระบบแล้ว");
-}
-async function init() {
-  try {
-    publicInfo=await api("publicInfo");
-    renderServices();
-    const loading=document.getElementById("loading");
-    loading.textContent=publicInfo.open?"✧ ประตูราชสำนักเปิดต้อนรับแล้ว ✧":"ขณะนี้ปิดรับคิว";
-    loading.style.color=publicInfo.open?"#f5d78c":"#ffb1b1";
-  } catch(error) {
-    document.getElementById("loading").textContent=
-      "เชื่อมต่อระบบไม่ได้: "+error.message+" — กรุณาตรวจสอบ URL และการ Deploy";
-    document.getElementById("loading").style.color="#ffb1b1";
-  }
+function addOption(select,value,label){
+  const option=document.createElement('option');
+  option.value=value;
+  option.textContent=label;
+  select.appendChild(option);
 }
 
-/* Gold dust animation */
-(function(){
-  const canvas=document.getElementById("particles");
-  const ctx=canvas.getContext("2d");
-  let w=0,h=0,dpr=1,particles=[];
-  function resize(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    w=window.innerWidth;h=window.innerHeight;
-    canvas.width=w*dpr;canvas.height=h*dpr;
-    canvas.style.width=w+"px";canvas.style.height=h+"px";
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    const count=Math.min(95,Math.floor(w/9));
-    particles=Array.from({length:count},()=>({
-      x:Math.random()*w,y:Math.random()*h,
-      r:Math.random()*1.8+.35,
-      vy:Math.random()*.38+.12,
-      vx:(Math.random()-.5)*.25,
-      a:Math.random()*.6+.15,
-      phase:Math.random()*6.28
-    }));
+function showSettings(){
+  $('settingsPanel').classList.toggle('hidden');
+}
+async function saveAdminSettings(){
+  if(!adminToken)return;
+  try{
+    const result=await api('adminSettings',{
+      token:adminToken,
+      open:$('adminOpen').value==='true',
+      paymentNote:$('adminPaymentNote').value
+    });
+    showMessage('adminResult','บันทึกการตั้งค่าสำเร็จ','ok');
+    publicInfo.open=$('adminOpen').value==='true';
+    publicInfo.paymentNote=$('adminPaymentNote').value;
+    updateStatus();
+    await refreshAdmin();
+  }catch(error){
+    showMessage('adminResult',error.message,'error');
   }
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    for(const p of particles){
-      p.y-=p.vy;p.x+=p.vx+Math.sin(p.phase)*.12;p.phase+=.012;
-      if(p.y<-5){p.y=h+5;p.x=Math.random()*w}
-      if(p.x<-5)p.x=w+5;
-      if(p.x>w+5)p.x=-5;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle="rgba(246,204,112,"+(p.a*(.65+.35*Math.sin(p.phase)))+")";
-      ctx.shadowColor="#e8b85a";ctx.shadowBlur=p.r>1.4?10:4;
-      ctx.fill();
-    }
-    ctx.shadowBlur=0;
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener("resize",resize);
-  resize();draw();
-})();
-init();
+}
+function adminLogout(){
+  adminToken='';
+  adminDataCache=null;
+  $('adminPanel').classList.add('hidden');
+  $('adminLoginPanel').classList.remove('hidden');
+  $('settingsPanel').classList.add('hidden');
+  $('adminQueues').replaceChildren();
+  clearMessage('adminResult');
+}
+
+makeParticles();
+loadPublicInfo();
 </script>
 </body>
 </html>
