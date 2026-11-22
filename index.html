@@ -157,6 +157,10 @@ section:nth-of-type(odd) .eyebrow{color:var(--teal)}section:nth-of-type(even) .e
 .rk{display:inline-block;margin-top:6px;padding:1px 14px;border-radius:99px;border:1px solid var(--teal);color:var(--teal);font-size:.8rem}
 .rmsg{margin-top:14px;color:var(--text);font-size:.95rem;padding:0 6px}
 .rd{color:var(--mute);font-size:.78rem;margin-top:8px}
+.snd{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:rgba(20,10,40,.7);backdrop-filter:blur(6px);color:var(--gold);font-size:1.25rem;cursor:pointer;box-shadow:0 0 20px rgba(240,210,138,.25)}
+#intro .ihint{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:var(--gold);font-size:.85rem;animation:orn 2.5s ease-in-out infinite}
+#blessing.ringing h2::after{content:" 🔔";display:inline-block;transform-origin:50% 0;animation:swing 1.2s ease-in-out infinite}
+@keyframes swing{0%,100%{transform:rotate(0)}25%{transform:rotate(22deg)}75%{transform:rotate(-22deg)}}
 footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 20px 48px;border-top:1px solid var(--line)}
 @media(max-width:520px){.btn.ghost{margin:10px 0 0}}
 @media(prefers-reduced-motion:reduce){.stars,.hero svg,.hero svg *,section *{animation:none!important}.hero>*{opacity:1!important;transform:none!important}}
@@ -164,6 +168,28 @@ footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 20px 48p
 </head>
 <body>
 <noscript><style>#intro{display:none}.hero>*{animation-play-state:running!important}</style></noscript>
+<script>
+(function(){
+var ctx=null,on=true;
+function init(){if(!ctx){try{ctx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return false}}if(ctx.state==='suspended'){try{ctx.resume()}catch(e){}}return true}
+function ring(f,v,d){
+  if(!on||!ctx||ctx.state!=='running')return;
+  var t=ctx.currentTime+(d||0),m=ctx.createGain();m.gain.value=v||.25;m.connect(ctx.destination);
+  [[1,1,2.8],[2.01,.5,2.1],[2.76,.45,1.7],[4.07,.25,1.2],[5.4,.2,.8],[8.93,.1,.5]].forEach(function(p){
+    var o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f*p[0];
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(p[1],t+.005);g.gain.exponentialRampToValueAtTime(.0001,t+p[2]);
+    o.connect(g);g.connect(m);o.start(t);o.stop(t+p[2]+.1)})
+}
+window.bell={
+  unlock:init,
+  tap:function(){ring(1320,.2)},
+  spin:function(){init();[880,1108,1318,1760].forEach(function(f,i){ring(f,.16,i*.12)})},
+  win:function(){ring(660,.28);ring(990,.18,.35)},
+  temple:function(){[[1568,.16,0],[1760,.13,.3],[1568,.15,.66],[1976,.12,.95],[1568,.15,1.38],[2093,.11,1.65],[1760,.12,2.05],[1568,.14,2.35]].forEach(function(n){ring(n[0],n[1],n[2])});ring(392,.18,0);ring(392,.14,1.4)},
+  toggle:function(b){on=!on;b.textContent=on?'🔔':'🔕';b.setAttribute('aria-pressed',String(on));if(on){init();setTimeout(function(){ring(1100,.22)},120)}}
+};
+})();
+</script>
 <div id="intro" aria-hidden="true">
   <div class="ph">
     <div class="isl"></div>
@@ -175,6 +201,7 @@ footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 20px 48p
       <div class="appopen"><div class="ao-s">✦</div><div class="ao-t">แม่หมออุ้มบุญ</div><div class="ao-l"><i></i></div></div>
     </div>
   </div>
+  <div class="ihint">🔔 แตะหน้าจอเพื่อเปิดเสียงกระดิ่ง</div>
   <button class="skip" id="iskip" type="button">ข้าม ›</button>
 </div>
 <script>
@@ -187,12 +214,13 @@ var T=[],P=I.querySelector('.ph');
 function at(ms,fn){T.push(setTimeout(fn,ms))}
 function end(){T.forEach(clearTimeout);I.classList.add('done');H.style.overflow='';go();setTimeout(function(){I.remove()},1000)}
 at(900,function(){I.classList.add('s1')});
-at(2800,function(){I.classList.add('s2')});
-at(4300,function(){I.classList.add('s3')});
+at(2800,function(){I.classList.add('s2');bell.tap()});
+at(4300,function(){I.classList.add('s3');bell.tap()});
 at(4800,function(){I.classList.add('s4')});
 at(6300,function(){P.classList.add('zoom')});
 at(7000,end);
 document.getElementById('iskip').addEventListener('click',end);
+I.addEventListener('click',function(e){if(e.target.id!=='iskip')bell.unlock()});
 })();
 </script>
 <div class="stars"></div>
@@ -383,15 +411,27 @@ function show(i){
   res.innerHTML='<div class="rcard pop"><div class="rn">ไพ่ใบที่ '+i+'</div><div class="rem">'+c[2]+'</div><div class="rt">'+c[1]+'</div><div class="re">'+c[0]+'</div><span class="rk">'+c[3]+'</span></div><div class="rmsg">'+c[4]+'</div><div class="rd">ไพ่ประจำวันที่ '+d+'</div>';
 }
 btn.addEventListener('click',function(){
-  if(busy)return;busy=true;btn.disabled=true;btn.textContent='กำลังหยั่งรู้...';
+  if(busy)return;busy=true;bell.spin();btn.disabled=true;btn.textContent='กำลังหยั่งรู้...';
   var idx;
   try{var a=new Uint32Array(1);crypto.getRandomValues(a);idx=a[0]%N}catch(e){idx=Math.floor(Math.random()*N)}
   var base=cur+360*6,rem=(base+idx*A)%360,nr=base+(360-rem)%360+(Math.random()-.5)*A*.5;
   cur=nr;svg.style.transform='rotate('+nr+'deg)';
   res.innerHTML='<div class="rcard"><div class="rem">🔮</div><div class="rs">ไพ่กำลังเลือกคุณ...</div></div>';
-  setTimeout(function(){show(idx);busy=false;btn.disabled=false;btn.textContent='✦ สุ่มอีกครั้ง ✦'},5400);
+  setTimeout(function(){show(idx);bell.win();busy=false;btn.disabled=false;btn.textContent='✦ สุ่มอีกครั้ง ✦'},5400);
 });
 })();
 </script>
+<script>
+(function(){
+['pointerdown','touchend','click','keydown'].forEach(function(ev){document.addEventListener(ev,function(){bell.unlock()},{passive:true})});
+var sec=document.getElementById('blessing');if(!sec||!('IntersectionObserver' in window))return;
+var timer=null;
+function start(){if(timer)return;bell.temple();sec.classList.add('ringing');timer=setInterval(function(){bell.temple()},3800)}
+function stop(){if(timer){clearInterval(timer);timer=null}sec.classList.remove('ringing')}
+new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting)start();else stop()})},{threshold:.35}).observe(sec);
+document.addEventListener('visibilitychange',function(){if(document.hidden)stop()});
+})();
+</script>
+<button class="snd id="snd" type="button" aria-label="เปิด/ปิดเสียงกระดิ่ง" aria-pressed="true" onclick="bell.toggle(this)">🔔</button>
 </body>
-</html>
+</html>​
