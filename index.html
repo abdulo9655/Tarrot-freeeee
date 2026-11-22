@@ -1,88 +1,397 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#26091d">
-<title>TAROT HUB BY AUMBOON</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>แม่หมออุ้มบุญ | ดูดวงไพ่ทาโรต์</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=Noto+Sans+Thai:wght@300;400;500&display=swap">
 <style>
-:root{--gold:#f7d58a;--cream:#fff3dc}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Georgia,"Noto Sans Thai",sans-serif;background:#180812;color:var(--cream)}
-body{min-height:100vh;display:grid;place-items:center;overflow:hidden}
-.hero{position:fixed;inset:0;background-image:linear-gradient(180deg,#18051255,#180512dd),url("temple.png");background-size:cover;background-position:center;animation:zoom 22s ease-in-out infinite alternate}
-.shade{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 15%,#10030b88 100%);pointer-events:none}
-main{position:relative;z-index:1;width:min(900px,92vw);padding:30px 18px;text-align:center;animation:appear 1.2s ease both}
-.lotus{font-size:60px;color:var(--gold);text-shadow:0 0 28px #f7c75b;animation:glow 3s infinite}
-.brand{font-size:clamp(34px,8vw,76px);font-weight:bold;letter-spacing:.12em;color:#ffe5a3;text-shadow:0 4px 24px #000,0 0 24px #c18a36;line-height:1.2;margin:12px 0}
-.by{font-size:clamp(13px,2vw,20px);letter-spacing:.3em;color:var(--gold)}
-.rule{width:min(330px,70%);height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:25px auto}
-h2{font-size:clamp(25px,5vw,43px);color:#ffe0a0;margin:12px 0;text-shadow:0 3px 15px #000}
-p{line-height:1.9;text-shadow:0 2px 8px #000}
-.english{font-style:italic;color:#f4d6a0}
-.loader{width:42px;height:42px;border:3px solid #ffdf9d44;border-top-color:var(--gold);border-right-color:var(--gold);border-radius:50%;margin:25px auto 14px;animation:spin 1s linear infinite}
-.loading{font-size:12px;letter-spacing:.15em;color:#f5d9a0}
-.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:25px}
-a{display:inline-block;text-decoration:none;font-weight:bold;border-radius:999px;padding:13px 23px;transition:.2s}
-a:hover{transform:translateY(-3px);box-shadow:0 0 24px #e6b75b66}
-.primary{background:linear-gradient(135deg,#ffebae,#c58a35);color:#321020}
-.secondary{border:1px solid #f2d18b;color:#fff1cf;background:#26091d99}
-footer{font-size:11px;color:#f0d4a1;margin-top:28px;letter-spacing:.08em}
-.petal{position:fixed;top:-10vh;z-index:0;color:#ffd1df;opacity:.75;animation:fall linear infinite;pointer-events:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes zoom{from{transform:scale(1.02)}to{transform:scale(1.12)}}
-@keyframes appear{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@keyframes glow{50%{filter:drop-shadow(0 0 16px #ffcc5c)}}
-@keyframes fall{to{transform:translateY(115vh) rotate(420deg);opacity:0}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+:root{--bg:#0e0720;--card:rgba(255,255,255,.055);--line:rgba(231,198,120,.3);--gold:#f0d28a;--rose:#e69ad0;--vio:#8f6bff;--text:#f4efff;--mute:#bdb2e0;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;height:100%}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans Thai',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 15% 0,#3a1c7a 0,transparent 50%),radial-gradient(ellipse at 90% 35%,#5b1e5e 0,transparent 45%),radial-gradient(ellipse at 40% 100%,#1c2f6b 0,transparent 50%)}
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:radial-gradient(1.5px 1.5px at 12% 20%,#fff,transparent),radial-gradient(1px 1px at 30% 60%,#fff,transparent),radial-gradient(2px 2px at 55% 15%,var(--gold),transparent),radial-gradient(1px 1px at 70% 75%,#fff,transparent),radial-gradient(1.5px 1.5px at 88% 40%,#fff,transparent),radial-gradient(1px 1px at 45% 90%,var(--rose),transparent),radial-gradient(1.5px 1.5px at 5% 85%,#fff,transparent),radial-gradient(1px 1px at 95% 10%,#fff,transparent);background-size:420px 420px;animation:tw 5s ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.45}to{opacity:1}}
+h1,h2,h3{font-family:'Noto Serif Thai',serif;font-weight:700;line-height:1.35}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+section{padding:60px 0}
+.eyebrow{color:var(--gold);letter-spacing:.25em;font-size:.75rem;text-transform:uppercase;text-align:center}
+h2{font-size:clamp(1.6rem,4.5vw,2.3rem);margin:6px 0 10px;color:var(--gold);text-align:center}
+.orn{display:flex;align-items:center;gap:12px;justify-content:center;color:var(--gold);margin-bottom:30px;opacity:.85}
+.orn::before,.orn::after{content:"";height:1px;width:70px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{transform:scaleX(-1)}
+.hero{text-align:center;padding:70px 0 50px}
+.hero .art{width:min(420px,92%);margin:0 auto}
+.hero h1{font-size:clamp(2.4rem,9vw,4.4rem);background:linear-gradient(90deg,var(--gold),var(--rose),var(--gold));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 6s linear infinite;margin:6px 0 4px;text-shadow:0 0 40px rgba(240,210,138,.2)}
+@keyframes sh{to{background-position:200% center}}
+.hero p{max-width:560px;margin:8px auto 26px;color:var(--mute)}
+.btn{display:inline-block;padding:13px 32px;border-radius:99px;background:linear-gradient(135deg,var(--gold),#c99a3f);color:#2a1a05;font-weight:500;text-decoration:none;box-shadow:0 8px 36px rgba(240,210,138,.3)}
+.btn.ghost{background:none;color:var(--gold);border:1px solid var(--line);box-shadow:none;margin-left:8px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;backdrop-filter:blur(8px);transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(143,107,255,.25)}
+.card h3{color:var(--gold);font-size:1.15rem;margin-bottom:8px}
+.card p,.card li{color:var(--mute);font-size:.96rem}
+.ico{font-size:1.9rem;margin-bottom:6px;filter:drop-shadow(0 0 10px var(--gold))}
+ul{padding-left:20px}
+.price{font-family:'Noto Serif Thai',serif;font-size:2.3rem;color:var(--text);margin:6px 0}
+.price small{font-size:.9rem;color:var(--mute);font-family:'Noto Sans Thai',sans-serif}
+.tag{display:inline-block;font-size:.72rem;padding:1px 12px;border-radius:99px;border:1px solid var(--rose);color:var(--rose);margin-bottom:6px}
+.card.hot{border-color:var(--gold);box-shadow:0 0 40px rgba(240,210,138,.18)}
+.note{border:1px dashed var(--line);border-radius:16px;padding:16px 22px;color:var(--mute);font-size:.9rem;margin-top:20px}
+.coming{position:relative;text-align:center;border-radius:30px;padding:50px 22px;background:linear-gradient(135deg,rgba(240,210,138,.13),rgba(143,107,255,.16),rgba(230,154,208,.13));border:1px solid var(--line);overflow:hidden}
+.ring{width:150px;height:150px;margin:0 auto 6px;animation:sp 40s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.k{font-family:'Noto Serif Thai',serif;font-size:2.6rem;color:var(--gold);letter-spacing:.3em;margin-top:-100px;position:relative;margin-bottom:60px}
+.float{animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-10px)}}
+.deity{text-align:center}.deity svg{width:min(200px,70%);filter:drop-shadow(0 0 22px rgba(240,210,138,.35));margin-bottom:6px}.soon{text-align:center;padding:44px 22px}.soon .ico{font-size:2.4rem}.soon h3{font-size:1.5rem}
+/* animations */
+.hero>*{opacity:0;animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero>*:nth-child(1){animation-delay:.1s}.hero>*:nth-child(2){animation-delay:.35s}.hero>*:nth-child(3){animation-delay:.55s}.hero>*:nth-child(4){animation-delay:.75s}.hero>*:nth-child(5){animation-delay:.95s}
+@keyframes up{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+.hero svg>circle:first-of-type{transform-box:fill-box;transform-origin:center;animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.9);opacity:.6}50%{transform:scale(1.1);opacity:1}}
+h2{background:linear-gradient(90deg,var(--gold),#fff3d0,var(--gold));background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 7s linear infinite}
+.orn{animation:orn 3.5s ease-in-out infinite}
+@keyframes orn{0%,100%{opacity:.5;letter-spacing:0}50%{opacity:1;letter-spacing:6px}}
+.btn{position:relative;overflow:hidden;transition:transform .3s}
+.btn:hover{transform:translateY(-3px) scale(1.04)}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite}
+@keyframes shine{0%{left:-80%}60%,100%{left:140%}}
+.card.hot{animation:hot 3s ease-in-out infinite}
+@keyframes hot{50%{box-shadow:0 0 60px rgba(240,210,138,.4)}}
+.ico{display:inline-block;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(6deg)}}
+.deity svg>circle:first-of-type{transform-box:fill-box;transform-origin:center;animation:sp 30s linear infinite}
+.deity svg{animation:aura 4s ease-in-out infinite}
+@keyframes aura{50%{filter:drop-shadow(0 0 38px rgba(230,154,208,.6))}}
+.k{animation:kg 3s ease-in-out infinite}
+@keyframes kg{50%{text-shadow:0 0 28px var(--gold)}}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.shoot{position:fixed;top:-10px;width:2px;height:90px;z-index:-1;pointer-events:none;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff);transform:rotate(35deg);opacity:0;animation:shoot 7s linear infinite}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(35deg)}4%{opacity:1}14%{opacity:0;transform:translate(-420px,520px) rotate(35deg)}100%{opacity:0}}
+.sp{position:fixed;bottom:-20px;z-index:-1;pointer-events:none;color:var(--gold);animation:rise linear infinite;opacity:0}
+@keyframes rise{0%{opacity:0;transform:translateY(0) rotate(0)}15%{opacity:.8}100%{opacity:0;transform:translateY(-105vh) rotate(180deg)}}
+.phone-wrap{text-align:center;margin-bottom:22px}.phone{width:min(230px,70%);transform:rotate(-5deg);filter:drop-shadow(0 20px 40px rgba(143,107,255,.45));animation:ph 6s ease-in-out infinite}
+@keyframes ph{50%{transform:rotate(-2deg) translateY(-12px)}}
+/* phone intro */
+#intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,#2d1a5e 0,#0e0720 70%);transition:opacity .9s ease;overflow:hidden}
+#intro.done{opacity:0;pointer-events:none}
+#intro .ph{position:relative;height:min(76vh,580px);aspect-ratio:9/19;border-radius:46px;background:#05020f;border:3px solid #c99a3f;padding:10px;box-shadow:0 0 80px rgba(143,107,255,.5),0 0 0 1px rgba(240,210,138,.3);animation:phin 1s cubic-bezier(.2,.7,.2,1) both;transition:transform 1.2s cubic-bezier(.75,0,.25,1)}
+@keyframes phin{from{opacity:0;transform:translateY(90px) rotate(8deg) scale(.9)}to{opacity:1;transform:none}}
+#intro .ph.zoom{transform:scale(7)}
+#intro .isl{position:absolute;top:18px;left:50%;width:28%;height:3.4%;transform:translateX(-50%);background:#000;border-radius:99px;z-index:20}
+#intro .scr{position:relative;height:100%;border-radius:36px;overflow:hidden;background:#000}
+#intro .blk{position:absolute;inset:0;background:#000;z-index:10;transition:opacity .9s}
+#intro.s1 .blk{opacity:0}
+#intro .lock,#intro .home,#intro .appopen{position:absolute;inset:0}
+#intro .lock{z-index:5;text-align:center;padding-top:20%;background:linear-gradient(#3a1c7a,#150a33);transition:transform .9s cubic-bezier(.7,0,.3,1)}
+#intro.s2 .lock{transform:translateY(-105%)}
+#intro .lt{font-family:'Noto Serif Thai',serif;font-size:clamp(2.4rem,8vh,3.4rem);color:#fff;line-height:1.1}
+#intro .ld{color:var(--mute);font-size:.8rem}
+#intro .mw{font-size:3rem;color:var(--gold);margin-top:16%;filter:drop-shadow(0 0 16px var(--gold));animation:bob 3s ease-in-out infinite}
+#intro .hint{position:absolute;bottom:11%;left:0;right:0;color:#fff;font-size:.75rem;opacity:.8;animation:orn 2s ease-in-out infinite}
+#intro .bar{position:absolute;bottom:4%;left:32%;width:36%;height:4px;border-radius:2px;background:#fff;opacity:.8;animation:swp 1.6s ease-in-out infinite}
+@keyframes swp{50%{transform:translateY(-18px)}}
+#intro .home{z-index:3;background:linear-gradient(160deg,#2a1560,#5b1e5e,#1c2f6b);padding:24% 7% 0;display:grid;grid-template-columns:repeat(4,1fr);gap:7% 6%;align-content:start;transform:scale(1.18);transition:transform .9s ease}
+#intro.s2 .home{transform:none}
+#intro .ic{aspect-ratio:1;border-radius:24%;background:rgba(255,255,255,.22)}
+#intro .ic:nth-child(3n){background:rgba(230,154,208,.45)}#intro .ic:nth-child(4n){background:rgba(143,107,255,.5)}#intro .ic:nth-child(5n){background:rgba(240,210,138,.45)}
+#intro .app{background:linear-gradient(135deg,#2b1760,#150a33);border:1.5px solid var(--gold);display:grid;place-items:center;font-size:1.5rem;transition:transform .25s;box-shadow:0 0 18px rgba(240,210,138,.6);animation:aura 2s ease-in-out infinite}
+#intro.s3 .app{transform:scale(.85)}
+#intro .tap{position:absolute;z-index:8;left:21%;top:29%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid var(--gold);background:rgba(240,210,138,.3);opacity:0;transform:scale(.2);pointer-events:none}
+#intro.s3 .tap{animation:rip .7s ease-out}
+@keyframes rip{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(1.8)}}
+#intro .appopen{z-index:6;background:linear-gradient(#1c1038,#0e0720);display:grid;place-content:center;justify-items:center;gap:10px;text-align:center;opacity:0;transform:scale(.18);transform-origin:21% 29%;border-radius:30px;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .5s,border-radius .8s}
+#intro.s4 .appopen{opacity:1;transform:none;border-radius:0}
+#intro .ao-t{font-family:'Noto Serif Thai',serif;font-size:1.3rem;color:var(--gold)}
+#intro .ao-s{font-size:2.4rem;color:var(--gold);animation:sp 6s linear infinite}
+#intro .ao-l{width:120px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);overflow:hidden}
+#intro .ao-l i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--rose))}
+#intro.s4 .ao-l i{width:100%;transition:width 1.2s ease}
+#intro .skip{position:absolute;right:18px;top:calc(18px + env(safe-area-inset-top,0px));background:none;border:1px solid var(--line);color:var(--gold);padding:6px 16px;border-radius:99px;font:inherit;font-size:.85rem;cursor:pointer;z-index:30}
+body:not(.go) .hero>*{animation-play-state:paused}
+.obg{margin:26px auto 0;max-width:560px}.obg svg{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 6px 18px rgba(143,107,255,.35))}.obt{color:var(--gold);font-family:'Noto Serif Thai',serif;letter-spacing:.12em;margin-top:6px}
+.fl{transform-box:fill-box;transform-origin:left center;animation:wave 3s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:skewY(-3deg) scaleX(1)}50%{transform:skewY(3deg) scaleX(.93)}}
+/* more colour */
+:root{--teal:#5ee7df;--coral:#ff8a7a;--pink:#ff7eb6;--sky:#6ab7ff;--lime:#b8f27a;--amber:#ffb86b}
+body::after{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(circle at 20% 30%,rgba(94,231,223,.18),transparent 35%),radial-gradient(circle at 80% 20%,rgba(255,126,182,.2),transparent 35%),radial-gradient(circle at 70% 80%,rgba(255,184,107,.15),transparent 35%),radial-gradient(circle at 25% 85%,rgba(106,183,255,.18),transparent 35%);animation:drift 18s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,3%) rotate(8deg) scale(1.1);filter:hue-rotate(40deg)}}
+.hero h1{background-image:linear-gradient(90deg,var(--gold),var(--pink),var(--sky),var(--teal),var(--gold));background-size:300% auto}
+.grid>.card{--a:var(--pink);border-color:color-mix(in srgb,var(--a) 45%,transparent);border-top:3px solid var(--a);background:linear-gradient(165deg,color-mix(in srgb,var(--a) 16%,transparent),rgba(255,255,255,.04) 70%)}
+.grid>.card:nth-child(4n+2){--a:var(--teal)}
+.grid>.card:nth-child(4n+3){--a:var(--amber)}
+.grid>.card:nth-child(4n+4){--a:var(--sky)}
+.grid>.card.hot{--a:var(--gold)}
+.grid>.card h3{color:var(--a)}
+.grid>.card:hover{box-shadow:0 14px 40px color-mix(in srgb,var(--a) 40%,transparent)}
+.grid>.card .tag{border-color:var(--a);color:var(--a)}
+.grid>.card .ico{filter:drop-shadow(0 0 12px var(--a))}
+.grid>.card .price{background:linear-gradient(90deg,#fff,var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+section:nth-of-type(odd) .eyebrow{color:var(--teal)}section:nth-of-type(even) .eyebrow{color:var(--pink)}
+.orn{background:linear-gradient(90deg,var(--teal),var(--pink),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.orn::before{background:linear-gradient(90deg,transparent,var(--teal))}.orn::after{background:linear-gradient(90deg,transparent,var(--pink))}
+.btn{background:linear-gradient(135deg,var(--gold),var(--coral),var(--pink));color:#2a0d1a}
+.note{border-color:color-mix(in srgb,var(--sky) 45%,transparent)}
+.coming{background:linear-gradient(135deg,rgba(94,231,223,.14),rgba(143,107,255,.18),rgba(255,126,182,.16),rgba(255,184,107,.12));border-color:rgba(255,255,255,.2)}
+.k{color:var(--pink)}
+.card.soon{--a:var(--teal)}
+.draw{display:flex;gap:34px;flex-wrap:wrap;justify-content:center;align-items:center}
+.wheelbox{position:relative;width:min(340px,86vw);text-align:center}
+.wheelbox svg{display:block;width:100%;margin-bottom:18px;transition:transform 5.2s cubic-bezier(.12,.7,.1,1);filter:drop-shadow(0 0 30px rgba(143,107,255,.55))}
+.ptr{position:absolute;top:-16px;left:50%;transform:translateX(-50%);color:var(--gold);font-size:1.9rem;z-index:2;filter:drop-shadow(0 0 8px var(--gold));line-height:1}
+#spin:disabled{opacity:.6;cursor:wait}#spin{border:0;font:inherit;font-weight:500;cursor:pointer}
+.res{width:min(290px,86vw);text-align:center}
+.rcard{border-radius:20px;border:2px solid var(--gold);background:linear-gradient(165deg,#2b1760,#150a33);padding:26px 18px;box-shadow:0 0 50px rgba(240,210,138,.3);min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.rcard.pop{animation:popc .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes popc{from{opacity:0;transform:rotateY(90deg) scale(.8)}to{opacity:1;transform:none}}
+.rem{font-size:3.6rem;filter:drop-shadow(0 0 16px var(--gold))}
+.rn{color:var(--rose);letter-spacing:.2em;font-size:.8rem}
+.rt{font-family:'Noto Serif Thai',serif;font-size:1.35rem;color:var(--gold);font-weight:700}
+.re{color:var(--mute);font-size:.85rem;letter-spacing:.1em}
+.rs{color:var(--mute);font-size:.9rem}
+.rk{display:inline-block;margin-top:6px;padding:1px 14px;border-radius:99px;border:1px solid var(--teal);color:var(--teal);font-size:.8rem}
+.rmsg{margin-top:14px;color:var(--text);font-size:.95rem;padding:0 6px}
+.rd{color:var(--mute);font-size:.78rem;margin-top:8px}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 20px 48px;border-top:1px solid var(--line)}
+@media(max-width:520px){.btn.ghost{margin:10px 0 0}}
+@media(prefers-reduced-motion:reduce){.stars,.hero svg,.hero svg *,section *{animation:none!important}.hero>*{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
-<div class="hero"></div>
-<div class="shade"></div>
-
-<main>
-  <div class="lotus">❀</div>
-  <div class="brand">TAROT HUB</div>
-  <div class="by">BY AUMBOON</div>
-  <div class="rule"></div>
-
-  <h2>เว็บไซต์ชั่วคราว</h2>
-  <p>ขณะนี้เว็บไซต์อยู่ระหว่างการปรับปรุงระบบ</p>
-  <p>ขอบคุณที่แวะมาเยือนเทวาลัยของเรา<br>สามารถกดปุ่มด้านล่างเพื่อเข้าสู่เว็บไซต์ได้</p>
-  <p class="english">Thank you for your patience</p>
-
-  <div class="loader"></div>
-  <div class="loading">PREPARING YOUR JOURNEY…</div>
-
-  <div class="actions">
-    <a class="primary"
-       href="https://script.google.com/macros/s/AKfycbw_YYeNM7i5m4S16QRh_NAXzMd1HF3Ufg_-y1cViyat2v-nzqEfAdcS3bdr13IMz86p4w/exec"
-       target="_blank" rel="noopener">
-       เข้าสู่เว็บไซต์ ✦
-    </a>
-    <a class="secondary"
-       href="https://script.google.com/macros/s/AKfycbw_YYeNM7i5m4S16QRh_NAXzMd1HF3Ufg_-y1cViyat2v-nzqEfAdcS3bdr13IMz86p4w/exec">
-       เปิดในหน้านี้
-    </a>
+<noscript><style>#intro{display:none}.hero>*{animation-play-state:running!important}</style></noscript>
+<div id="intro" aria-hidden="true">
+  <div class="ph">
+    <div class="isl"></div>
+    <div class="scr">
+      <div class="blk"></div>
+      <div class="lock"><div class="lt" id="itime">9:41</div><div class="ld">ดวงชะตาของคุณรออยู่</div><div class="mw">☾</div><div class="hint">ปัดขึ้นเพื่อปลดล็อก</div><div class="bar"></div></div>
+      <div class="home"><div class="app">🔮</div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div><div class="ic"></div></div>
+      <div class="tap"></div>
+      <div class="appopen"><div class="ao-s">✦</div><div class="ao-t">แม่หมออุ้มบุญ</div><div class="ao-l"><i></i></div></div>
+    </div>
   </div>
-
-  <footer>🪷 TAROT HUB BY AUMBOON · A TEMPLE OF MYSTERY 🪷</footer>
-</main>
-
+  <button class="skip" id="iskip" type="button">ข้าม ›</button>
+</div>
 <script>
-const petals=['✿','❀','✧','✦'];
-for(let i=0;i<22;i++){
-  const p=document.createElement('span');
-  p.className='petal';
-  p.textContent=petals[i%petals.length];
-  p.style.left=Math.random()*100+'%';
-  p.style.animationDuration=9+Math.random()*12+'s';
-  p.style.animationDelay=-Math.random()*18+'s';
-  p.style.fontSize=10+Math.random()*15+'px';
-  document.body.appendChild(p);
+(function(){
+var I=document.getElementById('intro'),B=document.body,H=document.documentElement;
+function go(){B.classList.add('go')}
+try{document.getElementById('itime').textContent=new Date().toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})}catch(e){}
+H.style.overflow='hidden';
+var T=[],P=I.querySelector('.ph');
+function at(ms,fn){T.push(setTimeout(fn,ms))}
+function end(){T.forEach(clearTimeout);I.classList.add('done');H.style.overflow='';go();setTimeout(function(){I.remove()},1000)}
+at(900,function(){I.classList.add('s1')});
+at(2800,function(){I.classList.add('s2')});
+at(4300,function(){I.classList.add('s3')});
+at(4800,function(){I.classList.add('s4')});
+at(6300,function(){P.classList.add('zoom')});
+at(7000,end);
+document.getElementById('iskip').addEventListener('click',end);
+})();
+</script>
+<div class="stars"></div>
+
+<header class="hero wrap">
+  <svg class="art float" viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ไพ่ทาโรต์สามใบและดวงจันทร์">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d28a"/><stop offset="1" stop-color="#c99a3f"/></linearGradient>
+      <linearGradient id="c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b1760"/><stop offset="1" stop-color="#150a33"/></linearGradient>
+      <radialGradient id="glow"><stop offset="0" stop-color="#f0d28a" stop-opacity=".5"/><stop offset="1" stop-color="#f0d28a" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="210" cy="150" r="140" fill="url(#glow)"/>
+    <g transform="rotate(-16 120 170)"><rect x="70" y="70" width="110" height="170" rx="12" fill="url(#c)" stroke="url(#g)" stroke-width="2"/><rect x="80" y="80" width="90" height="150" rx="8" fill="none" stroke="#f0d28a" stroke-opacity=".4"/><path d="M125 118a30 30 0 1 0 22 50a24 24 0 1 1-22-50z" fill="url(#g)"/><circle cx="125" cy="205" r="3" fill="#f0d28a"/></g>
+    <g transform="rotate(16 300 170)"><rect x="240" y="70" width="110" height="170" rx="12" fill="url(#c)" stroke="url(#g)" stroke-width="2"/><rect x="250" y="80" width="90" height="150" rx="8" fill="none" stroke="#f0d28a" stroke-opacity=".4"/><circle cx="295" cy="150" r="22" fill="url(#g)"/><g stroke="#f0d28a" stroke-width="3" stroke-linecap="round"><path d="M295 108v-10M295 192v10M253 150h-10M337 150h10M265 120l-7-7M325 180l7 7M325 120l7-7M265 180l-7 7"/></g></g>
+    <g><rect x="150" y="45" width="120" height="190" rx="14" fill="url(#c)" stroke="url(#g)" stroke-width="2.5"/><rect x="160" y="55" width="100" height="170" rx="9" fill="none" stroke="#f0d28a" stroke-opacity=".5"/><path d="M210 95l9 26 28 1-22 17 8 27-23-16-23 16 8-27-22-17 28-1z" fill="url(#g)"/><circle cx="210" cy="205" r="4" fill="#e69ad0"/><path d="M185 70h50" stroke="#f0d28a" stroke-opacity=".6"/></g>
+    <g fill="#fff"><circle cx="40" cy="40" r="2"/><circle cx="385" cy="60" r="2.5"/><circle cx="60" cy="260" r="1.8"/><circle cx="370" cy="250" r="2"/></g>
+  </svg>
+  <div class="eyebrow">Tarot &amp; Fortune Reading</div>
+  <h1>แม่หมออุ้มบุญ</h1>
+  <p>ไขความลับแห่งดวงชะตาผ่านไพ่ทาโรต์ พื้นที่อบอุ่นสำหรับค้นหาแนวทางและเติมกำลังใจ เรื่องความรัก การงาน การเงิน และครอบครัว</p>
+  <a class="btn" href="#contact">จองคิวดูดวง</a><a class="btn ghost" href="#tarot">ดูรายละเอียด</a>
+</header>
+
+<section class="wrap">
+  <div class="eyebrow">Notice</div>
+  <h2>ดูเพื่อความบันเทิงและเป็นแนวทาง</h2>
+  <div class="orn">✦</div>
+  <div class="card"><p>การดูดวงทุกรูปแบบจัดทำ<strong>เพื่อความบันเทิงและเป็นแนวทางประกอบการตัดสินใจ</strong>เท่านั้น ไม่ใช่การยืนยันอนาคตอย่างแน่นอน และไม่ใช่คำแนะนำทางการแพทย์ กฎหมาย หรือการเงิน กรุณาใช้วิจารณญาณของตนเอง</p></div>
+</section>
+
+<section class="wrap" id="info">
+  <div class="eyebrow">Services</div>
+  <h2>ข้อมูลการดูดวง</h2>
+  <div class="orn">✦</div>
+  <div class="grid">
+    <div class="card"><div class="ico">💗</div><h3>ความรักและความสัมพันธ์</h3><p>คู่ครอง ความสัมพันธ์ที่ค้างคา โอกาสพบรักใหม่ และการปรับใจ</p></div>
+    <div class="card"><div class="ico">💰</div><h3>การงานและการเงิน</h3><p>เปลี่ยนงาน ธุรกิจ จังหวะการลงทุนในมุมมองเชิงแนวทาง</p></div>
+    <div class="card"><div class="ico">🌙</div><h3>ครอบครัวและบุตร</h3><p>พูดคุยเรื่องการวางแผนครอบครัว ความสัมพันธ์ในบ้าน และกำลังใจ</p></div>
+  </div>
+</section>
+
+<section class="wrap" id="tarot">
+  <div class="eyebrow">Tarot</div>
+  <h2>ดูดวงกับไพ่ทาโรต์</h2>
+  <div class="orn">✦</div>
+  <div class="grid">
+    <div class="card"><div class="ico">🔮</div><h3>ต้องเตรียมอะไรบ้าง</h3><ul><li>คำถามที่ชัดเจน 1–3 ข้อ</li><li>ชื่อเล่นและวันเกิด (ถ้ามี)</li><li>ใจที่เปิดรับและพร้อมฟัง</li><li>สถานที่เงียบๆ หากปรึกษาออนไลน์</li></ul></div>
+    <div class="card"><div class="ico">🃏</div><h3>ขั้นตอน</h3><ul><li>ทักแชทเพื่อจองคิว</li><li>ชำระมัดจำและยืนยันเวลา</li><li>ตั้งสมาธิและสับไพ่</li><li>รับคำทำนาย ถามต่อได้</li></ul></div>
+  </div>
+</section>
+
+<section class="wrap" id="daily">
+  <div class="eyebrow">Daily Card</div>
+  <h2>สุ่มวงล้อไพ่ทาโรต์ประจำวัน (เพื่อความบันเทิง)</h2>
+  <div class="orn">✦</div>
+  <div class="draw">
+    <div class="wheelbox">
+      <div class="ptr">▼</div>
+      <svg id="wheel" viewBox="-108 -108 216 216" role="img" aria-label="วงล้อไพ่ทาโรต์ 22 ใบ"></svg>
+      <button class="btn" id="spin" type="button">✦ หมุนวงล้อ ✦</button>
+      <div class="rd">(เพื่อความบันเทิง)</div>
+    </div>
+    <div class="res" id="res">
+      <div class="rcard"><div class="rem">🔮</div><div class="rt">ไพ่ประจำวันของคุณ</div><div class="rs">ตั้งจิตอธิษฐานเบาๆ แล้วกดหมุนวงล้อ</div></div>
+    </div>
+  </div>
+  <div class="note">คำทำนายเพื่อความบันเทิงและเป็นกำลังใจเท่านั้น ใช้ประกอบการคิดและไม่ใช่คำตัดสินชีวิต</div>
+</section>
+
+<section class="wrap" id="price">
+  <div class="eyebrow">Pricing</div>
+  <h2>ราคาบริการ</h2>
+  <div class="orn">✦</div>
+  <div class="grid">
+    <div class="card"><div class="tag">เริ่มต้น</div><h3>1 คำถาม</h3><div class="price">199 <small>บาท</small></div><p>คำถามเฉพาะเรื่อง ~15 นาที</p></div>
+    <div class="card hot"><div class="tag">ยอดนิยม</div><h3>ปูพื้นดวง 3 คำถาม</h3><div class="price">499 <small>บาท</small></div><p>ภาพรวมชีวิต ~30 นาที</p></div>
+    <div class="card"><div class="tag">เจาะลึก</div><h3>ดูยาวรายเดือน</h3><div class="price">899 <small>บาท</small></div><p>พร้อมสรุปแนวทาง ~60 นาที</p></div>
+  </div>
+  <div class="note">* ราคาเป็นตัวอย่าง แก้ไขได้ตามจริง</div>
+</section>
+
+<section class="wrap">
+  <div class="coming">
+    <div class="eyebrow">Coming Soon</div>
+    <svg class="ring" viewBox="0 0 150 150"><g fill="none" stroke="#f0d28a" stroke-opacity=".6"><circle cx="75" cy="75" r="70"/><circle cx="75" cy="75" r="52" stroke-dasharray="3 6"/><path d="M75 5v140M5 75h140M26 26l98 98M124 26L26 124" stroke-opacity=".3"/></g></svg>
+    <div class="k">사주</div>
+    <h2>ประกาศ: ศาสตร์การดูดวงใหม่กำลังจะเปิดเร็วๆ นี้</h2>
+    <p style="color:var(--mute);max-width:520px;margin:0 auto">พบกับศาสตร์การดูดวงของเกาหลี อ่านชะตาจากวันเวลาเกิดในสไตล์ใหม่ ติดตามได้เร็วๆ นี้</p>
+  </div>
+</section>
+
+<section class="wrap" id="blessing">
+  <div class="eyebrow">Blessing</div>
+  <h2>เสริมศิริมงคล</h2>
+  <div class="orn">✦</div>
+  <div class="grid">
+    <div class="card deity">
+      <svg viewBox="0 0 200 200" role="img" aria-label="พระพิฆเนศวร์"><circle cx="100" cy="100" r="92" fill="none" stroke="#f0d28a" stroke-opacity=".5" stroke-dasharray="3 6"/><circle cx="100" cy="100" r="84" fill="#1c1038" stroke="#f0d28a" stroke-opacity=".4"/><ellipse cx="54" cy="108" rx="28" ry="40" fill="#c99a3f" opacity=".9"/><ellipse cx="146" cy="108" rx="28" ry="40" fill="#c99a3f" opacity=".9"/><ellipse cx="100" cy="100" rx="40" ry="46" fill="#f0d28a"/><path d="M70 64L100 20L130 64Q100 52 70 64Z" fill="#e69ad0" stroke="#c99a3f" stroke-width="2"/><circle cx="100" cy="40" r="5" fill="#8f6bff"/><path d="M100 104Q102 150 86 164Q74 176 92 178" fill="none" stroke="#e8b95a" stroke-width="18" stroke-linecap="round"/><path d="M118 128Q130 150 120 164" fill="none" stroke="#fff7dc" stroke-width="5" stroke-linecap="round"/><circle cx="86" cy="92" r="4" fill="#2a1a05"/><circle cx="114" cy="92" r="4" fill="#2a1a05"/><path d="M100 70v12" stroke="#e04a6a" stroke-width="4" stroke-linecap="round"/></svg>
+      <h3>พระพิฆเนศวร์</h3><p>องค์เทพแห่งความสำเร็จ ปัญญา และการเริ่มต้นสิ่งใหม่ ขอพรให้อุปสรรคคลี่คลาย</p>
+    </div>
+    <div class="card deity">
+      <svg viewBox="0 0 200 200" role="img" aria-label="พระแม่กาลี"><circle cx="100" cy="100" r="92" fill="none" stroke="#e69ad0" stroke-opacity=".5" stroke-dasharray="3 6"/><circle cx="100" cy="100" r="84" fill="#1c1038" stroke="#f0d28a" stroke-opacity=".4"/><g fill="none" stroke="#3b4fc4" stroke-width="11" stroke-linecap="round"><path d="M72 150Q30 130 30 88"/><path d="M128 150Q170 130 170 88"/><path d="M76 166Q36 172 24 140"/><path d="M124 166Q164 172 176 140"/></g><g fill="#f0d28a"><circle cx="30" cy="84" r="8"/><circle cx="170" cy="84" r="8"/><circle cx="22" cy="136" r="8"/><circle cx="178" cy="136" r="8"/></g><ellipse cx="100" cy="182" rx="46" ry="30" fill="#3b4fc4"/><ellipse cx="100" cy="88" rx="52" ry="56" fill="#0a0618" stroke="#f0d28a" stroke-opacity=".5"/><ellipse cx="100" cy="94" rx="34" ry="40" fill="#3b4fc4"/><path d="M70 58L80 36L90 54L100 30L110 54L120 36L130 58Z" fill="#f0d28a"/><ellipse cx="100" cy="68" rx="3" ry="7" fill="#e04a6a"/><ellipse cx="87" cy="88" rx="7" ry="5" fill="#fff"/><ellipse cx="113" cy="88" rx="7" ry="5" fill="#fff"/><circle cx="87" cy="88" r="2.5" fill="#0a0618"/><circle cx="113" cy="88" r="2.5" fill="#0a0618"/><path d="M78 78Q87 72 95 78M105 78Q113 72 122 78" fill="none" stroke="#0a0618" stroke-width="3" stroke-linecap="round"/><path d="M88 112Q100 118 112 112" fill="none" stroke="#0a0618" stroke-width="3" stroke-linecap="round"/><path d="M94 114L106 114L105 140Q100 148 95 140Z" fill="#e04a6a"/><g fill="#f4efff"><circle cx="68" cy="146" r="5"/><circle cx="79" cy="152" r="5"/><circle cx="91" cy="156" r="5"/><circle cx="103" cy="157" r="5"/><circle cx="115" cy="155" r="5"/><circle cx="126" cy="150" r="5"/><circle cx="134" cy="143" r="5"/></g></svg>
+      <h3>พระแม่กาลี</h3><p>องค์เทวีแห่งพลังอำนาจ ปกป้องคุ้มครอง ขจัดสิ่งอัปมงคล และเสริมความกล้าหาญ</p>
+    </div>
+  </div>
+  <div class="note">ภาพประกอบเชิงศิลป์ เพื่อความเป็นสิริมงคลและความเคารพศรัทธา</div>
+</section>
+
+<section class="wrap" id="contact">
+  <div class="eyebrow">Contact</div>
+  <h2>ติดต่อจองคิว</h2>
+  <div class="orn">✦</div>
+  <div class="phone-wrap"><svg class="phone" viewBox="0 0 240 460" role="img" aria-label="ภาพโทรศัพท์มือถือแสดงหน้าจอดูดวงไพ่ทาโรต์">
+<defs><linearGradient id="scr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1c7a"/><stop offset="1" stop-color="#150a33"/></linearGradient><linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d28a"/><stop offset=".5" stop-color="#6a5a8a"/><stop offset="1" stop-color="#c99a3f"/></linearGradient></defs>
+<rect x="20" y="10" width="200" height="440" rx="42" fill="#0a0618" stroke="url(#edge)" stroke-width="4"/>
+<rect x="17" y="110" width="3" height="30" rx="1.5" fill="#c99a3f"/><rect x="17" y="150" width="3" height="48" rx="1.5" fill="#c99a3f"/><rect x="220" y="140" width="3" height="64" rx="1.5" fill="#c99a3f"/>
+<rect x="30" y="20" width="180" height="420" rx="34" fill="url(#scr)"/>
+<rect x="92" y="30" width="56" height="16" rx="8" fill="#05020f"/>
+<text x="120" y="76" text-anchor="middle" fill="#f0d28a" font-size="13" style="font-family:'Noto Serif Thai',serif;font-weight:700">แม่หมออุ้มบุญ</text>
+<rect x="82" y="92" width="76" height="116" rx="9" fill="#1c1038" stroke="#f0d28a" stroke-width="1.5"/>
+<path d="M120 118l7 20 21 1-17 13 6 20-17-12-17 12 6-20-17-13 21-1z" fill="#f0d28a"/>
+<circle cx="120" cy="192" r="3" fill="#e69ad0"/>
+<rect x="46" y="226" width="110" height="28" rx="14" fill="rgba(255,255,255,.12)"/><text x="58" y="244" fill="#f4efff" font-size="9.5" style="font-family:'Noto Sans Thai',sans-serif">ไพ่ใบนี้บอกอะไร? ✨</text>
+<rect x="76" y="264" width="118" height="42" rx="14" fill="#8f6bff"/><text x="88" y="281" fill="#fff" font-size="9" style="font-family:'Noto Sans Thai',sans-serif">ดาวนำทางสู่ความหวัง</text><text x="88" y="295" fill="#fff" font-size="9" style="font-family:'Noto Sans Thai',sans-serif">เชื่อมั่นในตัวเองนะคะ</text>
+<rect x="46" y="316" width="70" height="26" rx="13" fill="rgba(255,255,255,.12)"/><text x="58" y="333" fill="#f4efff" font-size="9.5" style="font-family:'Noto Sans Thai',sans-serif">ขอบคุณค่ะ 🌙</text>
+<rect x="52" y="394" width="136" height="26" rx="13" fill="rgba(255,255,255,.1)" stroke="#f0d28a" stroke-opacity=".4"/>
+<rect x="95" y="428" width="50" height="4" rx="2" fill="#f4efff" opacity=".7"/>
+</svg></div>
+  <div class="card soon"><div class="ico">🌙</div><h3>เร็วๆ นี้</h3><p>ช่องทางติดต่อและการจองคิวกำลังจะเปิดให้บริการ ติดตามได้เร็วๆ นี้</p></div>
+</section>
+
+<footer>© แม่หมออุ้มบุญ · เพื่อความบันเทิงและเป็นแนวทางเท่านั้น</footer>
+<script>
+(function(){
+if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+var b=document.body;
+for(var i=0;i<3;i++){var d=document.createElement('div');d.className='shoot';d.style.left=(40+i*25)+'%';d.style.animationDelay=(i*2.6)+'s';b.appendChild(d)}
+var ch=['✦','✧','·','✺'];
+for(var j=0;j<22;j++){var e=document.createElement('span');e.className='sp';e.textContent=ch[j%4];e.style.left=Math.random()*100+'%';e.style.fontSize=(8+Math.random()*14)+'px';e.style.animationDuration=(9+Math.random()*10)+'s';e.style.animationDelay=(-Math.random()*15)+'s';b.appendChild(e)}
+try{
+var els=document.querySelectorAll('section .card,section h2,section .eyebrow,section .orn,section .note,.coming');
+var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+els.forEach(function(el,i){el.classList.add('rv');el.style.transitionDelay=((i%3)*120)+'ms';io.observe(el)});
+}catch(e){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})}
+})();
+</script>
+<script>
+(function(){
+var C=[
+["The Fool","ผู้เริ่มต้น","🃏","การเริ่มต้นใหม่","วันนี้เหมาะกับการก้าวออกจากพื้นที่เดิม ลองทำสิ่งใหม่ด้วยใจเบาๆ ไม่ต้องกลัวผิดพลาด"],
+["The Magician","นักมายากล","🪄","พลังสร้างสรรค์","คุณมีเครื่องมือครบอยู่แล้ว ลงมือทำสิ่งที่ตั้งใจไว้ ความสำเร็จเริ่มจากการลงมือ"],
+["The High Priestess","สตรีนักบวช","🌙","สัญชาตญาณ","ฟังเสียงในใจให้มากขึ้น คำตอบบางอย่างไม่ต้องรีบรู้ เงียบๆ แล้วมันจะชัดเอง"],
+["The Empress","จักรพรรดินี","🌸","ความอุดมสมบูรณ์","วันนี้เหมาะกับการดูแลตัวเองและคนที่รัก สิ่งดีๆ กำลังเติบโตอย่างอ่อนโยน"],
+["The Emperor","จักรพรรดิ","👑","โครงสร้างและความมั่นคง","จัดระเบียบเรื่องสำคัญ วางแผนให้ชัด ความหนักแน่นจะพาคุณผ่านวันนี้ไปได้"],
+["The Hierophant","สังฆราช","🔔","ความเชื่อและคำแนะนำ","ปรึกษาผู้ที่ไว้ใจหรือยึดหลักที่เคยพิสูจน์แล้ว คำแนะนำดีๆ อาจมาจากคนใกล้ตัว"],
+["The Lovers","คู่รัก","💞","ความรักและการเลือก","ตัดสินใจจากหัวใจที่ซื่อตรง ความสัมพันธ์ดีๆ เริ่มจากความจริงใจ"],
+["The Chariot","รถม้าศึก","🐎","ชัยชนะและความมุ่งมั่น","ตั้งเป้าให้ชัดแล้วมุ่งไปข้างหน้า ความมีวินัยจะพาคุณถึงเส้นชัย"],
+["Strength","พลังใจ","🦁","ความกล้าที่อ่อนโยน","เข้มแข็งได้โดยไม่ต้องแข็งกร้าว ความใจเย็นคือพลังที่แท้จริงของวันนี้"],
+["The Hermit","ฤๅษี","🏮","การพิจารณาตนเอง","ให้เวลากับตัวเองสักช่วง แสงสว่างที่ต้องการอยู่ในใจของคุณเอง"],
+["Wheel of Fortune","วงล้อแห่งโชคชะตา","🎡","จังหวะเปลี่ยน","วงล้อกำลังหมุนในทางที่ดีขึ้น เปิดรับโอกาสที่ผ่านเข้ามา"],
+["Justice","ความยุติธรรม","⚖️","ความสมดุลและความจริง","ตัดสินใจด้วยเหตุผลและความเป็นธรรม สิ่งที่ทำดีไว้จะส่งผลดีกลับมา"],
+["The Hanged Man","ชายถูกแขวน","🙃","มองมุมใหม่","หยุดรอสักนิดแล้วลองมองต่างมุม การปล่อยวางอาจเปิดทางที่ไม่เคยเห็น"],
+["Death","การเปลี่ยนผ่าน","🦋","การจบเพื่อเริ่มใหม่","ไม่ได้หมายถึงเรื่องร้าย แต่คือการปิดบทเก่าอย่างงดงามเพื่อเปิดบทใหม่"],
+["Temperance","ความพอดี","🏺","สมดุลและเยียวยา","ผสมผสานทุกอย่างให้พอดี พักผ่อนและดูแลใจ จังหวะช้าๆ ก็ถึงที่หมาย"],
+["The Devil","พันธนาการ","🔗","ความยึดติด","ลองสังเกตสิ่งที่ผูกใจคุณไว้ คุณมีอิสระที่จะเลือกคลายมันออกได้เสมอ"],
+["The Tower","หอคอย","⚡","การเปลี่ยนแปลงฉับพลัน","อาจมีเรื่องไม่คาดคิด แต่คือโอกาสรื้อสร้างสิ่งที่มั่นคงกว่าเดิม"],
+["The Star","ดวงดาว","⭐","ความหวังและแรงบันดาลใจ","ความหวังกลับมาอีกครั้ง เชื่อมั่นในเส้นทางของตัวเอง วันนี้ใจโปร่งเบา"],
+["The Moon","พระจันทร์","🌕","ความไม่ชัดเจนและความฝัน","อาจมีบางอย่างคลุมเครือ อย่าเพิ่งด่วนสรุป ฟังสัญชาตญาณและรอให้ชัด"],
+["The Sun","พระอาทิตย์","☀️","ความสุขและความสำเร็จ","วันนี้สดใสเป็นพิเศษ แบ่งปันรอยยิ้มและรับพลังบวกให้เต็มที่"],
+["Judgement","การพิพากษา","📯","การตื่นรู้","ถึงเวลามองย้อนแล้วก้าวต่ออย่างมั่นใจ ให้อภัยตัวเองและเริ่มบทใหม่"],
+["The World","โลก","🌍","ความสมบูรณ์","วงจรหนึ่งกำลังจบลงอย่างสวยงาม ภูมิใจในสิ่งที่ผ่านมา และพร้อมเดินต่อ"]
+];
+var N=C.length,A=360/N,svg=document.getElementById('wheel');
+if(!svg)return;
+function pt(r,t){var a=t*Math.PI/180;return[(r*Math.sin(a)).toFixed(2),(-r*Math.cos(a)).toFixed(2)]}
+var h='<circle r="106" fill="#0a0618" stroke="#f0d28a" stroke-width="2"/>';
+for(var i=0;i<N;i++){
+  var p1=pt(98,i*A-A/2),p2=pt(98,i*A+A/2);
+  h+='<path d="M0 0L'+p1[0]+' '+p1[1]+'A98 98 0 0 1 '+p2[0]+' '+p2[1]+'Z" fill="hsl('+Math.round(i*360/N)+',65%,'+(i%2?'38%':'46%')+')" stroke="rgba(255,255,255,.35)" stroke-width=".6"/>';
+  h+='<g transform="rotate('+(i*A)+')"><text y="-76" text-anchor="middle" font-size="13">'+C[i][2]+'</text><text y="-58" text-anchor="middle" font-size="7" fill="#fff" fill-opacity=".85" style="font-family:\'Noto Serif Thai\',serif">'+i+'</text></g>';
 }
+h+='<circle r="17" fill="#150a33" stroke="#f0d28a" stroke-width="2"/><text y="5" text-anchor="middle" font-size="14" fill="#f0d28a">✦</text>';
+svg.innerHTML=h;
+var cur=0,btn=document.getElementById('spin'),res=document.getElementById('res'),busy=false;
+function show(i){
+  var c=C[i],d='';
+  try{d=new Date().toLocaleDateString('th-TH',{day:'numeric',month:'long',year:'numeric'})}catch(e){}
+  res.innerHTML='<div class="rcard pop"><div class="rn">ไพ่ใบที่ '+i+'</div><div class="rem">'+c[2]+'</div><div class="rt">'+c[1]+'</div><div class="re">'+c[0]+'</div><span class="rk">'+c[3]+'</span></div><div class="rmsg">'+c[4]+'</div><div class="rd">ไพ่ประจำวันที่ '+d+'</div>';
+}
+btn.addEventListener('click',function(){
+  if(busy)return;busy=true;btn.disabled=true;btn.textContent='กำลังหยั่งรู้...';
+  var idx;
+  try{var a=new Uint32Array(1);crypto.getRandomValues(a);idx=a[0]%N}catch(e){idx=Math.floor(Math.random()*N)}
+  var base=cur+360*6,rem=(base+idx*A)%360,nr=base+(360-rem)%360+(Math.random()-.5)*A*.5;
+  cur=nr;svg.style.transform='rotate('+nr+'deg)';
+  res.innerHTML='<div class="rcard"><div class="rem">🔮</div><div class="rs">ไพ่กำลังเลือกคุณ...</div></div>';
+  setTimeout(function(){show(idx);busy=false;btn.disabled=false;btn.textContent='✦ สุ่มอีกครั้ง ✦'},5400);
+});
+})();
 </script>
 </body>
 </html>
